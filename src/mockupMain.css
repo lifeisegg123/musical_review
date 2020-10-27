@@ -2,6 +2,10 @@ body {
   margin: 0;
   padding: 0;
 }
+.reset {
+  margin: 0;
+  padding: 0;
+}
 .header {
   display: flex;
   justify-content: space-around;
@@ -12,13 +16,15 @@ body {
   text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
   color: #383fe8;
 }
-.header__searchbox input {
+.searchbox input {
   text-align: center;
   background-color: #b7b7b7;
   width: 25vw;
-  height: 20px;
+  height: 25px;
   border: none;
+  border-radius: 5px;
 }
+
 .header__userlink {
   display: flex;
   justify-content: space-around;
@@ -68,6 +74,7 @@ body {
 .banner__desc {
   width: 40vw;
 }
+
 .mainlist {
   display: flex;
   flex-direction: column;
@@ -80,9 +87,10 @@ body {
 .mainlist__listbox {
 }
 .mainlist__category {
-  margin-left: 4.5vw;
+  margin-left: 3vw;
 }
 .mainlist__list {
+  padding: 0;
   display: flex;
   justify-content: space-around;
 }
@@ -92,6 +100,14 @@ body {
   align-items: center;
 }
 .mainlist__listitem img {
-  width: 13vw;
-  height: 30vh;
+  width: 12vw;
+  height: 33vh;
+  border-radius: 3%;
+}
+
+.searchbox--icon {
+  transform: translate(-150%, 0);
+}
+.mobile-display {
+  display: none;
 }
