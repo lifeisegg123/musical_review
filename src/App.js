@@ -1,34 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import React from "react";
 
-const test = async function(){
-  const result = await axios.get('http://localhost:5000/test')
-  const res = result.data.success;
-  console.log(res)
-}
+import axios from "axios";
 
+const test = async function () {
+  const data = {
+    name: "테스트!!!",
+    summary: "테스트용 데이터를 만들고",
+    link: "localhost:3000",
+  };
+  const result = await axios.get("http://localhost:5000/admin/selectData");
+  const res = result.data;
+  console.log(res);
+};
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={test}>test</button>
-      </header>
-    </div>
-  );
+  return <button onClick={test}>test</button>;
 }
 
 export default App;

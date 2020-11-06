@@ -1,0 +1,50 @@
+@media (max-width: 768px) {
+  .header__title {
+    font-size: 10px;
+  }
+  .header__hamburger {
+    display: inline;
+    font-size: 25px;
+    color: #c6c6c6;
+  }
+  .header__userlink {
+    display: none;
+  }
+  .pagedesc {
+    flex-direction: column;
+    width: 80vw;
+    height: 80vh;
+    margin: 10vh auto;
+    border-radius: 5%/4%;
+  }
+  .pagedesc__imgcontainer img {
+    height: 50vh;
+    width: 60vw;
+  }
+  .pagedesc__text {
+    width: 70vw;
+  }
+  .banner {
+    display: none;
+  }
+  .mainlist {
+    border-radius: 4%/2%;
+  }
+  .mainlist__listitem img {
+    width: 17vw;
+    height: 28vh;
+  }
+  .searchbox {
+    text-align: center;
+  }
+  .searchbox input {
+    width: 50vw;
+    background-color: #c6c6c6;
+  }
+  .mobile-display {
+    display: block;
+  }
+  .mobile-none {
+    display: none;
+  }
+}
