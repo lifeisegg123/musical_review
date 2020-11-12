@@ -1,7 +1,202 @@
-import React from "react";
+import BottomNav from "components/adminPage/BottomNav";
+import ListItem from "components/adminPage/ListItem";
+import React, { useEffect, useState } from "react";
+import { MdSearch, AiFillPlusCircle } from "react-icons/all";
+import styled from "styled-components";
+import Button from "components/adminPage/Button";
+
+import InfoForm from "components/adminPage/InfoForm";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "action/admin";
 
 const Admin = () => {
-  return <div></div>;
+  const [onEditing, setOnEditing] = useState(null);
+  const [dropbox, setDropbox] = useState(false);
+  const [isNewOne, setIsNewOne] = useState(true);
+  const handleMouseEnter = () => setDropbox(true);
+  const handleMouseLeave = () => setDropbox(false);
+
+  const dispatch = useDispatch();
+  const infos = useSelector((state) => state.admin.infos);
+  useEffect(() => {
+    dispatch(actions.requestInfo());
+    dispatch(actions.setCurPage(0));
+    return () => {};
+  }, []);
+
+  const endPage = useSelector((state) => state.admin.end);
+  const maxPage = Math.ceil(infos.length / 10);
+  const curPage = useSelector((state) => state.admin.curPage);
+
+  useEffect(() => {
+    if (infos.length) {
+      dispatch(actions.setStartEndPages(0, maxPage % 5));
+    }
+    setOnEditing(false);
+  }, [infos]);
+
+  const [info, setInfo] = useState("");
+  const handleAddButton = () => {
+    setOnEditing(true);
+    setIsNewOne(true);
+    setInfo("");
+  };
+  useEffect(() => {
+    if (info) {
+      setOnEditing(true);
+      setIsNewOne(false);
+    }
+  }, [info]);
+
+  const [pageNumbers, setPageNumbers] = useState([]);
+  const calculatePageButton = (curValue) => {
+    let arr = [];
+    for (let i = 0; i < 5; i++) {
+      if (curValue + i >= endPage) {
+        break;
+      }
+      arr.push(curValue + i);
+    }
+    setPageNumbers(arr);
+  };
+  useEffect(() => {
+    if (curPage % 5 === 0) {
+      calculatePageButton(curPage);
+    }
+  }, [curPage, endPage]);
+
+  return (
+    <Layout>
+      <Container width="35vw">
+        <ListHead>
+          <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <WhiteBox>카테고리</WhiteBox>
+            {dropbox && (
+              <DropdownBox>
+                <WhiteBox>카테고리</WhiteBox>
+                <WhiteBox>카테고리</WhiteBox>
+              </DropdownBox>
+            )}
+          </div>
+          <SearchBox>
+            <TextInput type="text"></TextInput>
+            <Button isborderd={false}>
+              <MdSearch></MdSearch>
+            </Button>
+          </SearchBox>
+        </ListHead>
+        <ListBox>
+          {infos &&
+            infos
+              .slice(curPage * 10, curPage * 10 + 10)
+              .map((info) => (
+                <ListItem
+                  info={info}
+                  key={info.musical_id}
+                  setParentInfo={setInfo}
+                ></ListItem>
+              ))}
+        </ListBox>
+        <BottomNav
+          dispatch={dispatch}
+          endPage={endPage}
+          setCurPageAction={actions.setCurPage}
+          handleAddButton={handleAddButton}
+          curPage={curPage}
+          pageNumbers={pageNumbers}
+        ></BottomNav>
+      </Container>
+      <Container width="55vw" marginLeft="1vw">
+        {onEditing ? (
+          <InfoForm
+            dispatch={dispatch}
+            addAction={actions.addInfo}
+            isNewOne={isNewOne}
+            info={info}
+          ></InfoForm>
+        ) : (
+          <PlusButton onClick={handleAddButton}>
+            <AiFillPlusCircle />
+          </PlusButton>
+        )}
+      </Container>
+    </Layout>
+  );
 };
 
+const Layout = styled.div`
+  width: 90vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  margin: auto;
+`;
+const Container = styled.div`
+  width: ${(props) => props.width};
+  margin-left: ${(props) => props.marginLeft};
+  height: 85vh;
+  padding: 2vh 2.5vw;
+  background-color: #ebeaea;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const ListHead = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+const WhiteBox = styled.button`
+  background-color: white;
+  padding: 3px;
+  border-radius: 10%/20%;
+  border: solid 1px black;
+  cursor: pointer;
+`;
+const SearchBox = styled.form`
+  background-color: white;
+  padding: 3px;
+  border-radius: 4px;
+  border: solid 1px black;
+`;
+
+const ListBox = styled.ul`
+  list-style: none;
+  padding: 0;
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`;
+
+const TextInput = styled.input.attrs({ type: `text` })`
+  border: none;
+`;
+
+const PlusButton = styled.div`
+  text-align: center;
+  margin: auto 0;
+  cursor: pointer;
+  & svg {
+    font-size: 70px;
+  }
+`;
+
+const DropdownBox = styled.div`
+  position: absolute;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px black;
+  & ${WhiteBox} {
+    border: none;
+    border-bottom: solid 1px black;
+    border-radius: 0;
+  }
+  & ${WhiteBox}:last-child {
+    border: none;
+  }
+`;
 export default Admin;
