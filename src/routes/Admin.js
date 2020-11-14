@@ -62,6 +62,7 @@ const Admin = () => {
     [maxPage]
   );
   useEffect(() => {
+    console.log(curPage);
     if (curPage % 5 === 0) {
       calculatePageButton(curPage);
     }
@@ -69,7 +70,7 @@ const Admin = () => {
 
   return (
     <Layout>
-      <Container width="35vw">
+      <Container>
         <ListHead>
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <WhiteBox>카테고리</WhiteBox>
@@ -108,7 +109,7 @@ const Admin = () => {
           pageNumbers={pageNumbers}
         ></BottomNav>
       </Container>
-      <Container width="55vw" marginLeft="1vw">
+      <Container wide marginLeft="1vw">
         {onEditing ? (
           <InfoForm
             dispatch={dispatch}
@@ -127,17 +128,21 @@ const Admin = () => {
 };
 
 const Layout = styled.div`
-  width: 90vw;
+  width: 92vw;
+  min-width: 1050px;
   height: 100vh;
+  min-height: 530px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: auto;
 `;
 const Container = styled.div`
-  width: ${(props) => props.width};
-  margin-left: ${(props) => props.marginLeft};
-  height: 85vh;
-  padding: 2vh 2.5vw;
+  width: ${(props) => (props.wide ? "50vw" : "35vw")};
+  min-width: ${(props) => (props.wide ? "570px" : "400px")};
+  height: 80vh;
+  min-height: 530px;
+  padding: 1% 1.5%;
   background-color: #ebeaea;
   display: flex;
   flex-direction: column;
@@ -166,7 +171,7 @@ const SearchBox = styled.form`
 const ListBox = styled.ul`
   list-style: none;
   padding: 0;
-  height: 65vh;
+  height: 75%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -23,7 +23,7 @@ const List = styled.li`
   align-items: center;
   background-color: white;
   border: solid 1px black;
-  margin-bottom: 1.5vh;
+  margin-bottom: 3%;
 `;
 const Checkbox = styled.label`
   cursor: pointer;
