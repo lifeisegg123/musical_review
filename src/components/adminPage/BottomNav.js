@@ -5,9 +5,9 @@ import Button from "./Button";
 
 const BottomNav = ({
   dispatch,
-  endPage,
   setCurPageAction,
   handleAddButton,
+  maxPage,
   curPage,
   pageNumbers,
 }) => {
@@ -23,7 +23,7 @@ const BottomNav = ({
     }
   };
   const handleNextButton = (event) => {
-    if (curPage >= endPage - 1) {
+    if (curPage >= maxPage - 1) {
       return;
     } else {
       dispatch(setCurPageAction(curPage + 1));

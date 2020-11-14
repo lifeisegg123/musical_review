@@ -1,6 +1,6 @@
 import BottomNav from "components/adminPage/BottomNav";
 import ListItem from "components/adminPage/ListItem";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { MdSearch, AiFillPlusCircle } from "react-icons/all";
 import styled from "styled-components";
 import Button from "components/adminPage/Button";
@@ -22,18 +22,17 @@ const Admin = () => {
     dispatch(actions.requestInfo());
     dispatch(actions.setCurPage(0));
     return () => {};
-  }, []);
+  }, [dispatch]);
 
-  const endPage = useSelector((state) => state.admin.end);
-  const maxPage = Math.ceil(infos.length / 10);
+  const maxPage = useSelector((state) => state.admin.maxPage);
   const curPage = useSelector((state) => state.admin.curPage);
 
   useEffect(() => {
     if (infos.length) {
-      dispatch(actions.setStartEndPages(0, maxPage % 5));
+      dispatch(actions.setMaxPage(Math.ceil(infos.length / 10)));
     }
     setOnEditing(false);
-  }, [infos]);
+  }, [infos, maxPage, dispatch]);
 
   const [info, setInfo] = useState("");
   const handleAddButton = () => {
@@ -49,21 +48,24 @@ const Admin = () => {
   }, [info]);
 
   const [pageNumbers, setPageNumbers] = useState([]);
-  const calculatePageButton = (curValue) => {
-    let arr = [];
-    for (let i = 0; i < 5; i++) {
-      if (curValue + i >= endPage) {
-        break;
+  const calculatePageButton = useCallback(
+    (curValue) => {
+      let arr = [];
+      for (let i = 0; i < 5; i++) {
+        if (curValue + i >= maxPage || !maxPage) {
+          break;
+        }
+        arr.push(curValue + i);
       }
-      arr.push(curValue + i);
-    }
-    setPageNumbers(arr);
-  };
+      setPageNumbers(arr);
+    },
+    [maxPage]
+  );
   useEffect(() => {
     if (curPage % 5 === 0) {
       calculatePageButton(curPage);
     }
-  }, [curPage, endPage]);
+  }, [curPage, maxPage, calculatePageButton]);
 
   return (
     <Layout>
@@ -99,7 +101,7 @@ const Admin = () => {
         </ListBox>
         <BottomNav
           dispatch={dispatch}
-          endPage={endPage}
+          maxPage={maxPage}
           setCurPageAction={actions.setCurPage}
           handleAddButton={handleAddButton}
           curPage={curPage}
