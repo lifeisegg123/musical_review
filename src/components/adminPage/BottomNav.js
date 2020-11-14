@@ -1,5 +1,10 @@
 import React from "react";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import {
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+  MdFirstPage,
+  MdLastPage,
+} from "react-icons/md";
 import styled from "styled-components";
 import Button from "./Button";
 
@@ -37,6 +42,11 @@ const BottomNav = ({
       <PageChanger>
         <li>
           <Button isborderd={true} onClick={handlePrevButton}>
+            <MdFirstPage></MdFirstPage>
+          </Button>
+        </li>
+        <li>
+          <Button isborderd={true} onClick={handlePrevButton}>
             <MdKeyboardArrowLeft></MdKeyboardArrowLeft>
           </Button>
         </li>
@@ -50,6 +60,11 @@ const BottomNav = ({
         <li>
           <Button isborderd={true} onClick={handleNextButton}>
             <MdKeyboardArrowRight></MdKeyboardArrowRight>
+          </Button>
+        </li>
+        <li>
+          <Button isborderd={true} onClick={handleNextButton}>
+            <MdLastPage></MdLastPage>
           </Button>
         </li>
       </PageChanger>

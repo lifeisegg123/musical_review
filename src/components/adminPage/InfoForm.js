@@ -90,6 +90,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
       setEndDate(info.end_date ? info.end_date.slice(0, 10) : "");
       setLink(info.link || "");
       setImgPath(info.img_path || "");
+      setImgName("");
     } else {
       setTitle("");
       setDesc("");
@@ -97,6 +98,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
       setEndDate("");
       setLink("");
       setImgPath("");
+      setImgName("");
     }
   }, [info]);
 
@@ -161,10 +163,14 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
           </label>
         </InfoItem>
       </Infolist>
-      <div>
-        {imgPath && <ImagePreview src={imgPath} alt="preview" />}
-        <Button type="submit">등록</Button>
-      </div>
+      <ImageContainer>
+        {imgPath ? (
+          <ImagePreview src={imgPath} alt="preview" />
+        ) : (
+          <span>이미지를 등록해주세요</span>
+        )}
+        <Button type="submit">{isNewOne ? "등록" : "수정"}</Button>
+      </ImageContainer>
     </Form>
   );
 };
@@ -173,10 +179,11 @@ export default InfoForm;
 
 const Form = styled.form`
   text-align: center;
+  height: 100%;
 `;
 
 const Infolist = styled.ul`
-  height: 40vh;
+  height: 50%;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -223,9 +230,13 @@ const InfoItem = styled.li`
     border-left: solid 1px black;
   }
 `;
+const ImageContainer = styled.div`
+  height: 40%;
+`;
+
 const ImagePreview = styled.img`
-  width: 20vw;
-  height: 40vh;
+  width: 45%;
+  height: 100%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: 5px;
 `;
