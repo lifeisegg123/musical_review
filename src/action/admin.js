@@ -6,7 +6,7 @@ export const types = {
   ADD_INFO: "admin/ADD_INFO",
   SET_INFOS: "admin/SET_INFOS",
   SET_CURPAGE: "admin/SET_CURPAGE",
-  SET_ENDPAGE: "admin/SET_ENDPAGE",
+  SET_MAXPAGE: "admin/SET_MAXPAGE",
 };
 export const actions = {
   requestInfo: () => ({
@@ -21,9 +21,9 @@ export const actions = {
     infos,
   }),
   setCurPage: (target) => ({ type: types.SET_CURPAGE, target }),
-  setEndPage: (endPage) => ({
-    type: types.SET_ENDPAGE,
-    endPage,
+  setMaxPage: (maxPage) => ({
+    type: types.SET_MAXPAGE,
+    maxPage,
   }),
 };
 
