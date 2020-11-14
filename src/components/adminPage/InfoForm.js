@@ -54,6 +54,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
     reader.readAsDataURL(theFile);
   };
   const addInfo = (event) => {
+    event.preventDefault();
     if (!title || !desc) {
       alert("제목 또는 설명이 입력되지 않았습니다.");
       return;

@@ -142,6 +142,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 15px;
 `;
 const ListHead = styled.div`
   width: 100%;
