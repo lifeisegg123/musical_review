@@ -27,6 +27,7 @@ const Admin = () => {
   useEffect(() => {
     setInfo(currentInfo);
   }, [currentInfo]);
+
   const handleAddButton = () => {
     setOnEditing(true);
     setIsNewOne(true);
@@ -79,11 +80,10 @@ const Admin = () => {
             </Button>
           </SearchBox>
         </ListHead>
-        <ListBox></ListBox>
+        <ListBox dispatch={dispatch} curPage={curPage}></ListBox>
         <BottomNav
           dispatch={dispatch}
           maxPage={maxPage}
-          setCurPageAction={actions.setCurPage}
           handleAddButton={handleAddButton}
           curPage={curPage}
           pageNumbers={pageNumbers}

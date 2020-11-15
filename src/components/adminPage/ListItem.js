@@ -2,8 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actions } from "action/admin";
-const ListItem = ({ item }) => {
-  const dispatch = useDispatch();
+const ListItem = ({ item, dispatch }) => {
   const onClick = (event) => {
     dispatch(actions.requestCurInfo(item.musical_id));
   };
