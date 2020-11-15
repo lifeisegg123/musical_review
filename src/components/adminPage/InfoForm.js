@@ -5,6 +5,7 @@ const { default: styled } = require("styled-components");
 
 const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [link, setLink] = useState("");
   const [desc, setDesc] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -17,6 +18,9 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
     switch (name) {
       case "title":
         setTitle(value);
+        break;
+      case "category":
+        setCategory(value);
         break;
       case "link":
         setLink(value);
@@ -55,8 +59,8 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
   };
   const addInfo = (event) => {
     event.preventDefault();
-    if (!title || !desc) {
-      alert("제목 또는 설명이 입력되지 않았습니다.");
+    if (!title || !desc || !category) {
+      alert("제목, 카테고리, 설명을 모두 입력하시기 바랍니다.");
       return;
     }
     const dayRegExp = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
@@ -106,7 +110,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
     <Form onSubmit={addInfo}>
       <Infolist>
         <InfoItem>
-          <h4>공연명</h4>
+          <h5>공연명</h5>
           <input
             name="title"
             type="text"
@@ -115,16 +119,16 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
           />
         </InfoItem>
         <InfoItem>
-          <h4>링크</h4>
+          <h5>카테고리</h5>
           <input
-            name="link"
+            name="category"
             type="text"
-            value={link}
+            value={category}
             onChange={handleOnChange}
           />
         </InfoItem>
         <InfoItem>
-          <h4>설명</h4>
+          <h5>설명</h5>
           <input
             name="desc"
             type="text"
@@ -133,7 +137,16 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
           />
         </InfoItem>
         <InfoItem>
-          <h4>기간</h4>
+          <h5>링크</h5>
+          <input
+            name="link"
+            type="text"
+            value={link}
+            onChange={handleOnChange}
+          />
+        </InfoItem>
+        <InfoItem>
+          <h5>기간</h5>
           <input
             name="startDate"
             type="date"
@@ -149,7 +162,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
           />
         </InfoItem>
         <InfoItem>
-          <h4>이미지</h4>
+          <h5>이미지</h5>
           <p>{imgName}</p>
           <input
             name="img"
@@ -201,7 +214,7 @@ const InfoItem = styled.li`
   justify-content: space-between;
   background-color: white;
   border: solid 1px black;
-  & h4 {
+  & h5 {
     width: 10%;
     padding: 3px;
     margin: 0;
