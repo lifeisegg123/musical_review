@@ -1,3 +1,4 @@
+import { actions } from "action/admin";
 import React from "react";
 import {
   MdKeyboardArrowLeft,
@@ -10,7 +11,6 @@ import Button from "./Button";
 
 const BottomNav = ({
   dispatch,
-  setCurPageAction,
   handleAddButton,
   maxPage,
   curPage,
@@ -18,20 +18,40 @@ const BottomNav = ({
 }) => {
   const handlePageNumber = (event) => {
     const target = Number(event.target.innerHTML);
-    dispatch(setCurPageAction(target));
+    dispatch(actions.requestPageList({ targetPage: target }));
+    dispatch(actions.setCurPage(target));
   };
-  const handlePrevButton = (event) => {
-    if (curPage <= 0) {
+  const handleFirstPageButton = () => {
+    if (curPage <= 1) {
+      return;
+    }
+    dispatch(actions.requestPageList({ curPage: 1, pageControl: "first" }));
+    dispatch(actions.setCurPage(1));
+  };
+  const handlePrevButton = () => {
+    if (curPage <= 1) {
       return;
     } else {
-      dispatch(setCurPageAction(curPage - 1));
+      dispatch(actions.requestPageList({ curPage, pageControl: "prev" }));
+      dispatch(actions.setCurPage(curPage - 1));
     }
   };
-  const handleNextButton = (event) => {
-    if (curPage >= maxPage - 1) {
+  const handleNextButton = () => {
+    if (curPage >= maxPage) {
       return;
     } else {
-      dispatch(setCurPageAction(curPage + 1));
+      dispatch(actions.requestPageList({ curPage, pageControl: "next" }));
+      dispatch(actions.setCurPage(curPage + 1));
+    }
+  };
+  const handlelastPageButton = () => {
+    if (curPage >= maxPage) {
+      return;
+    } else {
+      dispatch(
+        actions.requestPageList({ curPage: maxPage, pageControl: "end" })
+      );
+      dispatch(actions.setCurPage(maxPage));
     }
   };
   return (
@@ -41,7 +61,7 @@ const BottomNav = ({
       </Button>
       <PageChanger>
         <li>
-          <Button isborderd={true} onClick={handlePrevButton}>
+          <Button isborderd={true} onClick={handleFirstPageButton}>
             <MdFirstPage></MdFirstPage>
           </Button>
         </li>
@@ -63,7 +83,7 @@ const BottomNav = ({
           </Button>
         </li>
         <li>
-          <Button isborderd={true} onClick={handleNextButton}>
+          <Button isborderd={true} onClick={handlelastPageButton}>
             <MdLastPage></MdLastPage>
           </Button>
         </li>

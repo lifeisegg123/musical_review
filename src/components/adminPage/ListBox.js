@@ -4,18 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import ListItem from "./ListItem";
 
-const ListBox = () => {
+const ListBox = ({ dispatch, curPage }) => {
   const pageList = useSelector((state) => state.admin.pageList);
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(actions.requestPageList(1));
+    dispatch(actions.requestPageList(curPage));
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, curPage]);
   return (
     <ListContainer>
       {pageList &&
         pageList.map((item) => (
-          <ListItem item={item} key={item.musical_id}></ListItem>
+          <ListItem
+            item={item}
+            dispatch={dispatch}
+            key={item.musical_id}
+          ></ListItem>
         ))}
     </ListContainer>
   );

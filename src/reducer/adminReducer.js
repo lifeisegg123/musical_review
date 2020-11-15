@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   pageList: [],
   curInfo: {},
   curPage: 1,
-  maxPage: 0,
+  maxPage: 2,
 };
 
 const reducer = createReducer(INITIAL_STATE, {

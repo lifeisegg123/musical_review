@@ -11,9 +11,9 @@ export const types = {
   SET_MAXPAGE: "admin/SET_MAXPAGE",
 };
 export const actions = {
-  requestPageList: (curPage) => ({
+  requestPageList: (data) => ({
     type: types.REQUEST_PAGELIST,
-    curPage,
+    data,
   }),
   requestCurInfo: (targetId) => ({
     type: types.REQUEST_CURINFO,
@@ -40,8 +40,15 @@ export const actions = {
 
 export function* getPageList() {
   while (true) {
-    const { curPage } = yield take(types.REQUEST_PAGELIST);
-    const list = yield call(getPageApi, { nowPage: curPage, limitCount: 10 });
+    const {
+      data: { curPage, targetPage, pageControl },
+    } = yield take(types.REQUEST_PAGELIST);
+    const list = yield call(getPageApi, {
+      limitCount: 10,
+      nowPage: curPage,
+      toPage: targetPage,
+      pageControl,
+    });
     yield put(actions.setPageList(list));
   }
 }
