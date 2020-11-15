@@ -1,15 +1,21 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-const ListItem = ({ info, setParentInfo }) => {
-  const onClick = (event) => setParentInfo(info);
+import { actions } from "action/admin";
+const ListItem = ({ item }) => {
+  const dispatch = useDispatch();
+  const onClick = (event) => {
+    dispatch(actions.requestCurInfo(item.musical_id));
+  };
+
   return (
     <List>
       <CheckboxContainer>
-        <input type="checkbox" id={info.musical_id}></input>
-        <Checkbox htmlFor={info.musical_id}></Checkbox>
+        <input type="checkbox" id={item.musical_id}></input>
+        <Checkbox htmlFor={item.musical_id}></Checkbox>
       </CheckboxContainer>
-      <ListNumber onClick={onClick}>{info.musical_id}</ListNumber>
-      <ListTitle onClick={onClick}>{info.name}</ListTitle>
+      <ListNumber onClick={onClick}>{item.musical_id}</ListNumber>
+      <ListTitle onClick={onClick}>{item.name}</ListTitle>
     </List>
   );
 };

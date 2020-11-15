@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
+import styled from "styled-components";
 import Button from "./Button";
-const { default: styled } = require("styled-components");
 
 const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
   const [title, setTitle] = useState("");
@@ -57,6 +57,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
     };
     reader.readAsDataURL(theFile);
   };
+
   const addInfo = (event) => {
     event.preventDefault();
     if (!title || !desc || !category) {
@@ -87,7 +88,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
   };
 
   useEffect(() => {
-    if (info) {
+    if (Object.keys(info).length) {
       setTitle(info.name);
       setDesc(info.summary);
       setStartDate(info.start_date ? info.start_date.slice(0, 10) : "");

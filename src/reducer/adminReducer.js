@@ -2,13 +2,15 @@ import createReducer from "common/createReducer";
 import { types } from "action/admin";
 
 const INITIAL_STATE = {
-  infos: [],
-  curPage: 0,
+  pageList: [],
+  curInfo: {},
+  curPage: 1,
   maxPage: 0,
 };
 
 const reducer = createReducer(INITIAL_STATE, {
-  [types.SET_INFOS]: (state, action) => (state.infos = action.infos),
+  [types.SET_PAGELIST]: (state, action) => (state.pageList = action.pageList),
+  [types.SET_CURINFO]: (state, action) => (state.curInfo = action.curInfo),
   [types.SET_CURPAGE]: (state, action) => (state.curPage = action.target),
   [types.SET_MAXPAGE]: (state, action) => (state.maxPage = action.maxPage),
 });

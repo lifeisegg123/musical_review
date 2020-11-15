@@ -1,47 +1,39 @@
-import BottomNav from "components/adminPage/BottomNav";
-import ListItem from "components/adminPage/ListItem";
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MdSearch, AiFillPlusCircle } from "react-icons/all";
 import styled from "styled-components";
-import Button from "components/adminPage/Button";
 
-import InfoForm from "components/adminPage/InfoForm";
-import { useDispatch, useSelector } from "react-redux";
 import { actions } from "action/admin";
 
+import Button from "components/adminPage/Button";
+import InfoForm from "components/adminPage/InfoForm";
+import BottomNav from "components/adminPage/BottomNav";
+import ListBox from "components/adminPage/ListBox";
+
 const Admin = () => {
-  const [onEditing, setOnEditing] = useState(null);
+  const [onEditing, setOnEditing] = useState(false);
   const [dropbox, setDropbox] = useState(false);
   const [isNewOne, setIsNewOne] = useState(true);
   const handleMouseEnter = () => setDropbox(true);
   const handleMouseLeave = () => setDropbox(false);
 
   const dispatch = useDispatch();
-  const infos = useSelector((state) => state.admin.infos);
-  useEffect(() => {
-    dispatch(actions.requestInfo());
-    dispatch(actions.setCurPage(0));
-    return () => {};
-  }, [dispatch]);
 
-  const maxPage = useSelector((state) => state.admin.maxPage);
   const curPage = useSelector((state) => state.admin.curPage);
+  const maxPage = useSelector((state) => state.admin.maxPage);
 
+  const currentInfo = useSelector((state) => state.admin.curInfo);
+  const [info, setInfo] = useState({});
   useEffect(() => {
-    if (infos.length) {
-      dispatch(actions.setMaxPage(Math.ceil(infos.length / 10)));
-    }
-    setOnEditing(false);
-  }, [infos, maxPage, dispatch]);
-
-  const [info, setInfo] = useState("");
+    setInfo(currentInfo);
+  }, [currentInfo]);
   const handleAddButton = () => {
     setOnEditing(true);
     setIsNewOne(true);
-    setInfo("");
+    setInfo({});
   };
   useEffect(() => {
-    if (info) {
+    if (Object.keys(info).length) {
       setOnEditing(true);
       setIsNewOne(false);
     }
@@ -62,7 +54,6 @@ const Admin = () => {
     [maxPage]
   );
   useEffect(() => {
-    console.log(curPage);
     if (curPage % 5 === 0) {
       calculatePageButton(curPage);
     }
@@ -88,18 +79,7 @@ const Admin = () => {
             </Button>
           </SearchBox>
         </ListHead>
-        <ListBox>
-          {infos &&
-            infos
-              .slice(curPage * 10, curPage * 10 + 10)
-              .map((info) => (
-                <ListItem
-                  info={info}
-                  key={info.musical_id}
-                  setParentInfo={setInfo}
-                ></ListItem>
-              ))}
-        </ListBox>
+        <ListBox></ListBox>
         <BottomNav
           dispatch={dispatch}
           maxPage={maxPage}
@@ -131,7 +111,7 @@ const Layout = styled.div`
   width: 92vw;
   min-width: 1050px;
   height: 100vh;
-  min-height: 530px;
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -141,7 +121,7 @@ const Container = styled.div`
   width: ${(props) => (props.wide ? "50vw" : "35vw")};
   min-width: ${(props) => (props.wide ? "570px" : "400px")};
   height: 80vh;
-  min-height: 530px;
+  min-height: 600px;
   padding: 1% 1.5%;
   background-color: #ebeaea;
   display: flex;
@@ -166,15 +146,6 @@ const SearchBox = styled.form`
   padding: 3px;
   border-radius: 4px;
   border: solid 1px black;
-`;
-
-const ListBox = styled.ul`
-  list-style: none;
-  padding: 0;
-  height: 75%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 `;
 
 const TextInput = styled.input.attrs({ type: `text` })`

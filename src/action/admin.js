@@ -1,24 +1,35 @@
-import getInfosApi, { addInfoApi } from "api/adminApi";
+import getPageApi, { addInfoApi, getMusicalData } from "api/adminApi";
 import { all, call, put, take, fork } from "redux-saga/effects";
 
 export const types = {
-  REQUEST_INFO: "admin/REQUEST_INFO",
+  REQUEST_PAGELIST: "admin/REQUEST_PAGELIST",
+  SET_PAGELIST: "admin/SET_PAGELIST",
+  REQUEST_CURINFO: "admin/REQUEST_CURINFO",
+  SET_CURINFO: "admin/SET_CURINFO",
   ADD_INFO: "admin/ADD_INFO",
-  SET_INFOS: "admin/SET_INFOS",
   SET_CURPAGE: "admin/SET_CURPAGE",
   SET_MAXPAGE: "admin/SET_MAXPAGE",
 };
 export const actions = {
-  requestInfo: () => ({
-    type: types.REQUEST_INFO,
+  requestPageList: (curPage) => ({
+    type: types.REQUEST_PAGELIST,
+    curPage,
+  }),
+  requestCurInfo: (targetId) => ({
+    type: types.REQUEST_CURINFO,
+    targetId,
+  }),
+  setCurInfo: (curInfo) => ({
+    type: types.SET_CURINFO,
+    curInfo,
   }),
   addInfo: (info) => ({
     type: types.ADD_INFO,
     info,
   }),
-  setInfos: (infos) => ({
-    type: types.SET_INFOS,
-    infos,
+  setPageList: (pageList) => ({
+    type: types.SET_PAGELIST,
+    pageList,
   }),
   setCurPage: (target) => ({ type: types.SET_CURPAGE, target }),
   setMaxPage: (maxPage) => ({
@@ -27,11 +38,19 @@ export const actions = {
   }),
 };
 
-export function* getInfos() {
+export function* getPageList() {
   while (true) {
-    yield take(types.REQUEST_INFO);
-    const infos = yield call(getInfosApi);
-    yield put(actions.setInfos(infos));
+    const { curPage } = yield take(types.REQUEST_PAGELIST);
+    const list = yield call(getPageApi, { nowPage: curPage, limitCount: 10 });
+    yield put(actions.setPageList(list));
+  }
+}
+
+export function* getCurrentInfo() {
+  while (true) {
+    const { targetId } = yield take(types.REQUEST_CURINFO);
+    const curInfo = yield call(getMusicalData, targetId);
+    yield put(actions.setCurInfo(curInfo));
   }
 }
 
@@ -47,5 +66,5 @@ export function* addInfo() {
 }
 
 export default function* watcher() {
-  yield all([fork(getInfos), fork(addInfo)]);
+  yield all([fork(getPageList), fork(getCurrentInfo), fork(addInfo)]);
 }

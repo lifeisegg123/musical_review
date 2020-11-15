@@ -17,7 +17,7 @@ const BottomNav = ({
   pageNumbers,
 }) => {
   const handlePageNumber = (event) => {
-    const target = parseInt(event.target.innerHTML) - 1;
+    const target = Number(event.target.innerHTML);
     dispatch(setCurPageAction(target));
   };
   const handlePrevButton = (event) => {
