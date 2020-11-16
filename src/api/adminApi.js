@@ -24,4 +24,11 @@ export const addInfoApi = async function (data) {
   const res = result.data.success;
   return res;
 };
+export const deleteInfoApi = async function (targetId) {
+  const result = await axios.patch(
+    `http://localhost:5000/musical//del-musical-data/${targetId}`
+  );
+  const res = result.data.success;
+  return res;
+};
 export default getPageApi;

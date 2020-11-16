@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { actions } from "action/admin";
@@ -6,11 +6,24 @@ const ListItem = ({ item, dispatch }) => {
   const onClick = (event) => {
     dispatch(actions.requestCurInfo(item.musical_id));
   };
-
+  const [checked, setChecked] = useState(false);
+  const handleCheck = () => {
+    if (!checked) {
+      dispatch(actions.addDeletionList(item.musical_id));
+    } else {
+      dispatch(actions.removeDeletionList(item.musical_id));
+    }
+    setChecked(!checked);
+  };
   return (
     <List>
       <CheckboxContainer>
-        <input type="checkbox" id={item.musical_id}></input>
+        <input
+          type="checkbox"
+          id={item.musical_id}
+          value={checked}
+          onClick={handleCheck}
+        ></input>
         <Checkbox htmlFor={item.musical_id}></Checkbox>
       </CheckboxContainer>
       <ListNumber onClick={onClick}>{item.musical_id}</ListNumber>

@@ -1,5 +1,9 @@
-import getPageApi, { addInfoApi, getMusicalData } from "api/adminApi";
-import { all, call, put, take, fork } from "redux-saga/effects";
+import getPageApi, {
+  addInfoApi,
+  deleteInfoApi,
+  getMusicalData,
+} from "api/adminApi";
+import { all, call, put, take, fork, select } from "redux-saga/effects";
 
 export const types = {
   REQUEST_PAGELIST: "admin/REQUEST_PAGELIST",
@@ -7,8 +11,11 @@ export const types = {
   REQUEST_CURINFO: "admin/REQUEST_CURINFO",
   SET_CURINFO: "admin/SET_CURINFO",
   ADD_INFO: "admin/ADD_INFO",
+  DELETE_INFO: "admin/DELETE_INFO",
   SET_CURPAGE: "admin/SET_CURPAGE",
   SET_MAXPAGE: "admin/SET_MAXPAGE",
+  ADD_DELETIONLIST: "admin/ADD_DELETIONLIST",
+  REMOVE_DELETIONLIST: "admin/REMOVE_DELETIONLIST",
 };
 export const actions = {
   requestPageList: (data) => ({
@@ -27,6 +34,9 @@ export const actions = {
     type: types.ADD_INFO,
     info,
   }),
+  deleteInfo: () => ({
+    type: types.DELETE_INFO,
+  }),
   setPageList: (pageList) => ({
     type: types.SET_PAGELIST,
     pageList,
@@ -36,9 +46,14 @@ export const actions = {
     type: types.SET_MAXPAGE,
     maxPage,
   }),
+  addDeletionList: (targetId) => ({ type: types.ADD_DELETIONLIST, targetId }),
+  removeDeletionList: (targetId) => ({
+    type: types.REMOVE_DELETIONLIST,
+    targetId,
+  }),
 };
 
-export function* getPageList() {
+export function* getPageListSaga() {
   while (true) {
     const {
       data: { curPage, targetPage, pageControl },
@@ -53,7 +68,7 @@ export function* getPageList() {
   }
 }
 
-export function* getCurrentInfo() {
+export function* getCurrentInfoSaga() {
   while (true) {
     const { targetId } = yield take(types.REQUEST_CURINFO);
     const curInfo = yield call(getMusicalData, targetId);
@@ -61,7 +76,7 @@ export function* getCurrentInfo() {
   }
 }
 
-export function* addInfo() {
+export function* addInfoSaga() {
   while (true) {
     const { info } = yield take(types.ADD_INFO);
     const res = yield call(addInfoApi, info);
@@ -72,6 +87,32 @@ export function* addInfo() {
   }
 }
 
+export function* deleteInfoSaga() {
+  while (true) {
+    yield take(types.DELETE_INFO);
+    const { deletionList, curPage } = yield select((state) => state.admin);
+    if (!deletionList.length) {
+      alert("삭제할 목록이 선택되지 않았습니다.");
+    }
+    for (const target of deletionList) {
+      const res = yield call(deleteInfoApi, target);
+      if (res === false) {
+        alert("err");
+      }
+    }
+    const list = yield call(getPageApi, {
+      limitCount: 10,
+      toPage: curPage,
+    });
+    yield put(actions.setPageList(list));
+  }
+}
+
 export default function* watcher() {
-  yield all([fork(getPageList), fork(getCurrentInfo), fork(addInfo)]);
+  yield all([
+    fork(getPageListSaga),
+    fork(getCurrentInfoSaga),
+    fork(addInfoSaga),
+    fork(deleteInfoSaga),
+  ]);
 }
