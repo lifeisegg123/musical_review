@@ -1,14 +1,11 @@
-import Axios from "axios";
+import { actions } from "action/admin";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
-  const data = { limitCount: 10 };
-  const test = async () => {
-    const result = await Axios.get(
-      "http://localhost:5000/musical/pagelist",
-      data
-    );
-    console.log(result);
+  const dispatch = useDispatch();
+  const test = () => {
+    dispatch(actions.requestPageList({ pageControl: "end" }));
   };
   return <button onClick={test}>hi</button>;
 };

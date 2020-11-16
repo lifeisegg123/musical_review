@@ -91,6 +91,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
     if (Object.keys(info).length) {
       setTitle(info.name);
       setDesc(info.summary);
+      setCategory(info.category);
       setStartDate(info.start_date ? info.start_date.slice(0, 10) : "");
       setEndDate(info.end_date ? info.end_date.slice(0, 10) : "");
       setLink(info.link || "");
@@ -99,6 +100,7 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
     } else {
       setTitle("");
       setDesc("");
+      setCategory("");
       setStartDate("");
       setEndDate("");
       setLink("");
