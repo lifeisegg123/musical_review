@@ -16,6 +16,9 @@ const BottomNav = ({
   curPage,
   pageNumbers,
 }) => {
+  const handleDelete = () => {
+    dispatch(actions.deleteInfo());
+  };
   const handlePageNumber = (event) => {
     const target = Number(event.target.innerHTML);
     dispatch(actions.requestPageList({ targetPage: target }));
@@ -56,7 +59,7 @@ const BottomNav = ({
   };
   return (
     <Container>
-      <Button isborderd={true}>
+      <Button isborderd={true} onClick={handleDelete}>
         <h5>삭제</h5>
       </Button>
       <PageChanger>
