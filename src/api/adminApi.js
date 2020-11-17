@@ -20,7 +20,16 @@ export const getMusicalData = async function (targetId) {
 };
 
 export const addInfoApi = async function (data) {
-  const result = await axios.post("http://localhost:5000/musical/regist", data);
+  const result = await axios
+    .post("http://localhost:5000/musical/regist", data)
+    .then((value) => {
+      alert("성공!");
+      return value;
+    })
+    .catch(() => {
+      alert("실패");
+      return false;
+    });
   const res = result.data.success;
   return res;
 };
