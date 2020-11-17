@@ -26,9 +26,9 @@ export const addInfoApi = async function (data) {
       alert("성공!");
       return value;
     })
-    .catch(() => {
-      alert("실패");
-      return false;
+    .catch((value) => {
+      console.log(value);
+      return { data: { success: false } };
     });
   const res = result.data.success;
   return res;
