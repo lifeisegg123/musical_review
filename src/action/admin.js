@@ -61,15 +61,16 @@ export const actions = {
 export function* getPageListSaga() {
   while (true) {
     const {
-      data: { curPage, targetPage, pageControl },
+      data: { curPage, targetPage, pageControl, category },
     } = yield take(types.REQUEST_PAGELIST);
-    const { result, lastPageNum } = yield call(getPageApi, {
+    const { data, lastPageNum } = yield call(getPageApi, {
       limitCount: 10,
       nowPage: curPage,
       toPage: targetPage,
       pageControl,
+      category,
     });
-    yield put(actions.setPageList(result));
+    yield put(actions.setPageList(data));
     yield put(actions.setMaxPage(lastPageNum));
   }
 }
@@ -113,11 +114,11 @@ export function* deleteInfoSaga() {
       }
     }
     yield put(actions.setDeletionList([]));
-    const { result, lastPageNum } = yield call(getPageApi, {
+    const { data, lastPageNum } = yield call(getPageApi, {
       limitCount: 10,
       toPage: newPage,
     });
-    yield put(actions.setPageList(result));
+    yield put(actions.setPageList(data));
     yield put(actions.setMaxPage(lastPageNum));
   }
 }
