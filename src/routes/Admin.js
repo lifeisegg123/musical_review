@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdSearch, AiFillPlusCircle } from "react-icons/all";
 import styled from "styled-components";
@@ -19,9 +19,6 @@ const Admin = () => {
 
   const dispatch = useDispatch();
 
-  const curPage = useSelector((state) => state.admin.curPage);
-  const maxPage = useSelector((state) => state.admin.maxPage);
-
   const currentInfo = useSelector((state) => state.admin.curInfo);
   const [info, setInfo] = useState({});
   useEffect(() => {
@@ -39,26 +36,6 @@ const Admin = () => {
       setIsNewOne(false);
     }
   }, [info]);
-
-  const [pageNumbers, setPageNumbers] = useState([]);
-  const calculatePageButton = useCallback(
-    (curValue) => {
-      let arr = [];
-      for (let i = 0; i < 5; i++) {
-        if (curValue + i >= maxPage || !maxPage) {
-          break;
-        }
-        arr.push(curValue + i);
-      }
-      setPageNumbers(arr);
-    },
-    [maxPage]
-  );
-  useEffect(() => {
-    if (curPage % 5 === 0) {
-      calculatePageButton(curPage);
-    }
-  }, [curPage, maxPage, calculatePageButton]);
 
   return (
     <Layout>
@@ -80,13 +57,10 @@ const Admin = () => {
             </Button>
           </SearchBox>
         </ListHead>
-        <ListBox dispatch={dispatch} curPage={curPage}></ListBox>
+        <ListBox dispatch={dispatch}></ListBox>
         <BottomNav
           dispatch={dispatch}
-          maxPage={maxPage}
           handleAddButton={handleAddButton}
-          curPage={curPage}
-          pageNumbers={pageNumbers}
         ></BottomNav>
       </Container>
       <Container wide marginLeft="1vw">

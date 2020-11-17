@@ -14,6 +14,7 @@ export const types = {
   DELETE_INFO: "admin/DELETE_INFO",
   SET_CURPAGE: "admin/SET_CURPAGE",
   SET_MAXPAGE: "admin/SET_MAXPAGE",
+  SET_DELETIONLIST: "admin/SET_DELETIONLIST",
   ADD_DELETIONLIST: "admin/ADD_DELETIONLIST",
   REMOVE_DELETIONLIST: "admin/REMOVE_DELETIONLIST",
 };
@@ -46,6 +47,10 @@ export const actions = {
     type: types.SET_MAXPAGE,
     maxPage,
   }),
+  setDeletionList: (deletionList) => ({
+    type: types.SET_DELETIONLIST,
+    deletionList,
+  }),
   addDeletionList: (targetId) => ({ type: types.ADD_DELETIONLIST, targetId }),
   removeDeletionList: (targetId) => ({
     type: types.REMOVE_DELETIONLIST,
@@ -58,13 +63,14 @@ export function* getPageListSaga() {
     const {
       data: { curPage, targetPage, pageControl },
     } = yield take(types.REQUEST_PAGELIST);
-    const list = yield call(getPageApi, {
+    const { result, lastPageNum } = yield call(getPageApi, {
       limitCount: 10,
       nowPage: curPage,
       toPage: targetPage,
       pageControl,
     });
-    yield put(actions.setPageList(list));
+    yield put(actions.setPageList(result));
+    yield put(actions.setMaxPage(lastPageNum));
   }
 }
 
@@ -90,21 +96,29 @@ export function* addInfoSaga() {
 export function* deleteInfoSaga() {
   while (true) {
     yield take(types.DELETE_INFO);
-    const { deletionList, curPage } = yield select((state) => state.admin);
+    const { pageList, deletionList, curPage, maxPage } = yield select(
+      (state) => state.admin
+    );
     if (!deletionList.length) {
       alert("삭제할 목록이 선택되지 않았습니다.");
     }
+    const newPage =
+      curPage === maxPage && pageList.length === deletionList.length
+        ? curPage - 1
+        : curPage;
     for (const target of deletionList) {
       const res = yield call(deleteInfoApi, target);
       if (res === false) {
         alert("err");
       }
     }
-    const list = yield call(getPageApi, {
+    yield put(actions.setDeletionList([]));
+    const { result, lastPageNum } = yield call(getPageApi, {
       limitCount: 10,
-      toPage: curPage,
+      toPage: newPage,
     });
-    yield put(actions.setPageList(list));
+    yield put(actions.setPageList(result));
+    yield put(actions.setMaxPage(lastPageNum));
   }
 }
 
