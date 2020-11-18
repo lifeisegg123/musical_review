@@ -67,7 +67,6 @@ const Admin = () => {
         {onEditing ? (
           <InfoForm
             dispatch={dispatch}
-            addAction={actions.addInfo}
             isNewOne={isNewOne}
             info={info}
           ></InfoForm>

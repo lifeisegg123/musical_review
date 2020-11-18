@@ -1,9 +1,10 @@
+import { actions } from "action/admin";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import styled from "styled-components";
 import Button from "./Button";
 
-const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
+const InfoForm = ({ dispatch, isNewOne, info }) => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [link, setLink] = useState("");
@@ -81,9 +82,12 @@ const InfoForm = ({ dispatch, isNewOne, addAction, info }) => {
       start_date: startDate,
       end_date: endDate,
       img_path: imgPath,
+      category,
     };
     if (isNewOne) {
-      dispatch(addAction(data));
+      dispatch(actions.addInfo(data));
+    } else {
+      dispatch(actions.updateInfo(data));
     }
   };
 

@@ -13,6 +13,6 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
-export default store;
-
 sagaMiddleware.run(adminSaga);
+
+export default store;

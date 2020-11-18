@@ -12,50 +12,31 @@ import Button from "./Button";
 
 const BottomNav = ({ dispatch, handleAddButton }) => {
   const curPage = useSelector((state) => state.admin.curPage);
-  const maxPage = useSelector((state) => state.admin.maxPage, shallowEqual);
+  const maxPage = useSelector((state) => state.admin.maxPage);
 
   const [pageNumbers, setPageNumbers] = useState([]);
-  const [curDirection, setCurDirection] = useState("first");
   const calculatePageButton = useCallback(
-    (curValue, determinant) => {
+    (curValue) => {
       let pages = [];
-      if (determinant) {
-        [0, 1, 2, 3, 4].some((value) => {
-          if (curValue + value > maxPage || !maxPage) {
-            return true;
-          }
-          pages.push(curValue + value);
-          return false;
-        });
-      } else {
-        [0, 1, 2, 3, 4].some((value) => {
-          if (
-            curValue - value < 0 ||
-            (curValue % 5 !== 0 && (curValue - value) % 5 === 0)
-          ) {
-            return true;
-          }
-          pages.push(curValue - value);
-          return false;
-        });
-        pages.reverse();
+      let targetValue = curValue - (curValue % 5) + 1;
+      if (!(curValue % 5)) {
+        targetValue = curValue - 4;
       }
+      [0, 1, 2, 3, 4].some((value) => {
+        if (targetValue + value > maxPage || !maxPage) {
+          return true;
+        }
+        pages.push(targetValue + value);
+        return false;
+      });
       setPageNumbers(pages);
     },
     [maxPage]
   );
 
   useEffect(() => {
-    if (curPage % 5 === 1 && curDirection === "next") {
-      calculatePageButton(curPage, true);
-    } else if (curPage % 5 === 0 && curDirection === "prev") {
-      calculatePageButton(curPage, false);
-    } else if (curDirection === "first") {
-      calculatePageButton(1, true);
-    } else if (curDirection === "end") {
-      calculatePageButton(curPage, false);
-    }
-  }, [curPage, maxPage, calculatePageButton, curDirection]);
+    calculatePageButton(curPage);
+  }, [curPage, maxPage, calculatePageButton]);
 
   const handleDelete = () => {
     dispatch(actions.deleteInfo());
@@ -67,7 +48,6 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
     }
     dispatch(actions.requestPageList({ targetPage: target }));
     dispatch(actions.setCurPage(target));
-    setCurDirection("");
   };
   const handleFirstPageButton = () => {
     if (curPage <= 1) {
@@ -75,7 +55,6 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
     }
     dispatch(actions.requestPageList({ pageControl: "first" }));
     dispatch(actions.setCurPage(1));
-    setCurDirection("first");
   };
   const handlePrevButton = () => {
     if (curPage <= 1) {
@@ -83,7 +62,6 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
     } else {
       dispatch(actions.requestPageList({ curPage, pageControl: "prev" }));
       dispatch(actions.setCurPage(curPage - 1));
-      setCurDirection("prev");
     }
   };
   const handleNextButton = () => {
@@ -92,7 +70,6 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
     } else {
       dispatch(actions.requestPageList({ curPage, pageControl: "next" }));
       dispatch(actions.setCurPage(curPage + 1));
-      setCurDirection("next");
     }
   };
   const handlelastPageButton = () => {
@@ -103,7 +80,6 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
         actions.requestPageList({ curPage: maxPage, pageControl: "end" })
       );
       dispatch(actions.setCurPage(maxPage));
-      setCurDirection("end");
     }
   };
   return (
