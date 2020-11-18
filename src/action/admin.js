@@ -2,6 +2,7 @@ import getPageApi, {
   addInfoApi,
   deleteInfoApi,
   getMusicalData,
+  updateInfoApi,
 } from "api/adminApi";
 import { all, call, put, take, fork, select } from "redux-saga/effects";
 
@@ -11,6 +12,7 @@ export const types = {
   REQUEST_CURINFO: "admin/REQUEST_CURINFO",
   SET_CURINFO: "admin/SET_CURINFO",
   ADD_INFO: "admin/ADD_INFO",
+  UPDATE_INFO: "admin/UPDATE_INFO",
   DELETE_INFO: "admin/DELETE_INFO",
   SET_CURPAGE: "admin/SET_CURPAGE",
   SET_MAXPAGE: "admin/SET_MAXPAGE",
@@ -33,6 +35,10 @@ export const actions = {
   }),
   addInfo: (info) => ({
     type: types.ADD_INFO,
+    info,
+  }),
+  updateInfo: (info) => ({
+    type: types.UPDATE_INFO,
     info,
   }),
   deleteInfo: () => ({
@@ -87,9 +93,49 @@ export function* addInfoSaga() {
   while (true) {
     const { info } = yield take(types.ADD_INFO);
     const res = yield call(addInfoApi, info);
-    console.log(res);
     if (!res) {
       alert("등록에 실패하였습니다.");
+    } else {
+      const curPage = yield select((state) => state.admin.curPage);
+      yield put(actions.requestPageList({ targetPage: curPage }));
+    }
+  }
+}
+
+export function* updateInfoSaga() {
+  while (true) {
+    const {
+      info: { name, summary, link, start_date, end_date, img_path, category },
+    } = yield take(types.UPDATE_INFO);
+    const curInfo = yield select((state) => state.admin.curInfo);
+    let target = {};
+    if (img_path === curInfo.img_path) {
+      target = {
+        musical_id: curInfo.musical_id,
+        name,
+        summary,
+        link,
+        start_date,
+        end_date,
+        category,
+      };
+    } else {
+      target = {
+        musical_id: curInfo.musical_id,
+        name,
+        summary,
+        link,
+        start_date,
+        end_date,
+        img_path,
+        category,
+      };
+    }
+    const res = yield call(updateInfoApi, target);
+    if (!res) {
+      alert("수정이 실패하였습니다");
+    } else {
+      alert("수정이 완료되었습니다.");
     }
   }
 }
@@ -109,17 +155,13 @@ export function* deleteInfoSaga() {
         : curPage;
     for (const target of deletionList) {
       const res = yield call(deleteInfoApi, target);
-      if (res === false) {
+      if (!res) {
         alert("err");
       }
     }
     yield put(actions.setDeletionList([]));
-    const { data, lastPageNum } = yield call(getPageApi, {
-      limitCount: 10,
-      toPage: newPage,
-    });
-    yield put(actions.setPageList(data));
-    yield put(actions.setMaxPage(lastPageNum));
+    yield put(actions.setCurPage(newPage));
+    yield put(actions.requestPageList({ toPage: newPage }));
   }
 }
 
@@ -128,6 +170,7 @@ export default function* watcher() {
     fork(getPageListSaga),
     fork(getCurrentInfoSaga),
     fork(addInfoSaga),
+    fork(updateInfoSaga),
     fork(deleteInfoSaga),
   ]);
 }

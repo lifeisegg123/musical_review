@@ -24,20 +24,28 @@ export const addInfoApi = async function (data) {
     .post("http://localhost:5000/musical/regist", data)
     .then((value) => {
       alert("성공!");
-      return value;
+      return value.data.success;
     })
     .catch((value) => {
       console.log(value);
-      return { data: { success: false } };
+      return false;
     });
-  const res = result.data.success;
-  return res;
+  return result;
 };
+
+export const updateInfoApi = async function (data) {
+  const result = await axios
+    .patch("http://localhost:5000/musical/updatedata", data)
+    .then(() => true)
+    .catch(() => false);
+  return result;
+};
+
 export const deleteInfoApi = async function (targetId) {
-  const result = await axios.patch(
-    `http://localhost:5000/musical//del-musical-data/${targetId}`
-  );
-  const res = result.data.success;
-  return res;
+  const result = await axios
+    .patch(`http://localhost:5000/musical//del-musical-data/${targetId}`)
+    .then(() => true)
+    .catch(() => false);
+  return result;
 };
 export default getPageApi;
