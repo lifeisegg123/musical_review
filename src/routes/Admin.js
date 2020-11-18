@@ -11,13 +11,10 @@ import BottomNav from "components/adminPage/BottomNav";
 import ListBox from "components/adminPage/ListBox";
 
 const Admin = () => {
-  const [onEditing, setOnEditing] = useState(false);
+  const dispatch = useDispatch();
   const [dropbox, setDropbox] = useState(false);
-  const [isNewOne, setIsNewOne] = useState(true);
   const handleMouseEnter = () => setDropbox(true);
   const handleMouseLeave = () => setDropbox(false);
-
-  const dispatch = useDispatch();
 
   const currentInfo = useSelector((state) => state.admin.curInfo);
   const [info, setInfo] = useState({});
@@ -25,6 +22,8 @@ const Admin = () => {
     setInfo(currentInfo);
   }, [currentInfo]);
 
+  const [onEditing, setOnEditing] = useState(false);
+  const [isNewOne, setIsNewOne] = useState(true);
   const handleAddButton = () => {
     setOnEditing(true);
     setIsNewOne(true);
