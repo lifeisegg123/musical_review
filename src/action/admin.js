@@ -96,6 +96,7 @@ export function* addInfoSaga() {
     if (!res) {
       alert("등록에 실패하였습니다.");
     } else {
+      yield put(actions.setCurInfo({}));
       const curPage = yield select((state) => state.admin.curPage);
       yield put(actions.requestPageList({ targetPage: curPage }));
     }
