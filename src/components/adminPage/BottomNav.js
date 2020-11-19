@@ -6,9 +6,9 @@ import {
   MdFirstPage,
   MdLastPage,
 } from "react-icons/md";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "components/adminPage/Button";
 
 const BottomNav = ({ dispatch, handleAddButton }) => {
   const curPage = useSelector((state) => state.admin.curPage);

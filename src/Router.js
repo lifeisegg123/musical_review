@@ -6,7 +6,7 @@ import Home from "routes/Home";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Route path="/" component={Home}></Route>
+      <Route exact path="/" component={Home}></Route>
       <Route path="/admin" component={Admin}></Route>
     </BrowserRouter>
   );
