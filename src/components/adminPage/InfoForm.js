@@ -48,6 +48,7 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       target: { files },
     } = event;
     const theFile = files[0];
+    console.log(theFile);
     setImgName(theFile.name);
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
@@ -57,6 +58,11 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       setImgPath(result);
     };
     reader.readAsDataURL(theFile);
+  };
+
+  const deleteImg = () => {
+    setImgName(null);
+    setImgPath(null);
   };
 
   const addInfo = (event) => {
@@ -99,7 +105,7 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       setStartDate(info.start_date ? info.start_date.slice(0, 10) : "");
       setEndDate(info.end_date ? info.end_date.slice(0, 10) : "");
       setLink(info.link || "");
-      setImgPath(info.img_path || "");
+      setImgPath(info.img_path ? `http://localhost:5000${info.img_path}` : "");
       setImgName("");
     } else {
       setTitle("");
@@ -185,7 +191,10 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       </Infolist>
       <ImageContainer>
         {imgPath ? (
-          <ImagePreview src={imgPath} alt="preview" />
+          <>
+            <ImagePreview src={imgPath} alt="preview" />
+            <Button onClick={deleteImg}>이미지 삭제</Button>
+          </>
         ) : (
           <span>이미지를 등록해주세요</span>
         )}
@@ -222,8 +231,8 @@ const InfoItem = styled.li`
   background-color: white;
   border: solid 1px black;
   & h5 {
-    width: 10%;
-    padding: 3px;
+    width: 12%;
+    padding: 5px;
     margin: 0;
     border-right: solid 1px black;
   }
@@ -235,10 +244,10 @@ const InfoItem = styled.li`
     height: 90%;
   }
   & input[type="text"] {
-    width: 90%;
+    width: 88%;
   }
   & input[type="date"] {
-    width: 44%;
+    width: 43%;
   }
   & input[id="img-input"] {
     display: none;

@@ -105,34 +105,9 @@ export function* addInfoSaga() {
 
 export function* updateInfoSaga() {
   while (true) {
-    const {
-      info: { name, summary, link, start_date, end_date, img_path, category },
-    } = yield take(types.UPDATE_INFO);
-    const curInfo = yield select((state) => state.admin.curInfo);
-    let target = {};
-    if (img_path === curInfo.img_path) {
-      target = {
-        musical_id: curInfo.musical_id,
-        name,
-        summary,
-        link,
-        start_date,
-        end_date,
-        category,
-      };
-    } else {
-      target = {
-        musical_id: curInfo.musical_id,
-        name,
-        summary,
-        link,
-        start_date,
-        end_date,
-        img_path,
-        category,
-      };
-    }
-    const res = yield call(updateInfoApi, target);
+    const { info } = yield take(types.UPDATE_INFO);
+    const { musical_id } = yield select((state) => state.admin.curInfo);
+    const res = yield call(updateInfoApi, { ...info, musical_id });
     if (!res) {
       alert("수정이 실패하였습니다");
     } else {
@@ -162,7 +137,7 @@ export function* deleteInfoSaga() {
     }
     yield put(actions.setDeletionList([]));
     yield put(actions.setCurPage(newPage));
-    yield put(actions.requestPageList({ toPage: newPage }));
+    yield put(actions.requestPageList({ targetPage: newPage }));
   }
 }
 
