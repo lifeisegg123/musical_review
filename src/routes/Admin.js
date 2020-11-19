@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdSearch, AiFillPlusCircle } from "react-icons/all";
 import styled from "styled-components";
 
-import { actions } from "action/admin";
-
 import Button from "components/adminPage/Button";
 import InfoForm from "components/adminPage/InfoForm";
 import BottomNav from "components/adminPage/BottomNav";

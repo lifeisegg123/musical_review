@@ -2,7 +2,7 @@ import { actions } from "action/admin";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "components/adminPage/Button";
 
 const InfoForm = ({ dispatch, isNewOne, info }) => {
   const [title, setTitle] = useState("");

@@ -15,7 +15,6 @@ export const getMusicalData = async function (targetId) {
   const {
     data: [res],
   } = result;
-
   return res;
 };
 
