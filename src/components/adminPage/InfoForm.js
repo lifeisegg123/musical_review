@@ -87,7 +87,7 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       link: link,
       start_date: startDate,
       end_date: endDate,
-      img_path: imgPath,
+      img_data: imgPath,
       category,
     };
     if (isNewOne) {
@@ -105,7 +105,7 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       setStartDate(info.start_date ? info.start_date.slice(0, 10) : "");
       setEndDate(info.end_date ? info.end_date.slice(0, 10) : "");
       setLink(info.link || "");
-      setImgPath(info.img_path ? `http://localhost:5000${info.img_path}` : "");
+      setImgPath(info.img_path || "");
       setImgName("");
     } else {
       setTitle("");
@@ -192,7 +192,10 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       <ImageContainer>
         {imgPath ? (
           <>
-            <ImagePreview src={imgPath} alt="preview" />
+            <ImagePreview
+              src={`http://localhost:5000${imgPath}`}
+              alt="preview"
+            />
             <Button onClick={deleteImg}>이미지 삭제</Button>
           </>
         ) : (
