@@ -1,8 +1,9 @@
 import { actions } from "action/admin";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import styled from "styled-components";
 import Button from "components/adminPage/Button";
+import blockSign from "img/blockSign.jpg";
 
 const InfoForm = ({ dispatch, isNewOne, info }) => {
   const [title, setTitle] = useState("");
@@ -42,12 +43,15 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
 
   const [imgPath, setImgPath] = useState("");
   const [imgName, setImgName] = useState("");
+  const [isLocalImg, setIsLocalImg] = useState(false);
+  const imgRef = useRef();
 
   const onFileChange = (event) => {
     const {
       target: { files },
     } = event;
     const theFile = files[0];
+    setIsLocalImg(true);
     console.log(theFile);
     setImgName(theFile.name);
     const reader = new FileReader();
@@ -58,6 +62,10 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
       setImgPath(result);
     };
     reader.readAsDataURL(theFile);
+  };
+
+  const handleError = () => {
+    imgRef.current.src = blockSign;
   };
 
   const deleteImg = () => {
@@ -81,20 +89,35 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
         alert("날짜 형식이 맞지 않습니다(YYYY-MM-DD)");
       }
     }
-    const data = {
-      name: title,
-      summary: desc,
-      link: link,
-      start_date: startDate,
-      end_date: endDate,
-      img_data: imgPath,
-      category,
-    };
     if (isNewOne) {
+      const data = {
+        name: title,
+        summary: desc,
+        link: link,
+        start_date: startDate,
+        end_date: endDate,
+        img_data: imgPath,
+        category,
+      };
       dispatch(actions.addInfo(data));
     } else {
+      const data = {
+        name: title,
+        summary: desc,
+        link: link,
+        start_date: startDate,
+        end_date: endDate,
+        img_path: imgPath,
+        category,
+      };
       dispatch(actions.updateInfo(data));
     }
+  };
+
+  const deleteInfo = () => {
+    dispatch(actions.addDeletionList(info.musical_id));
+    dispatch(actions.deleteInfo());
+    dispatch(actions.setCurInfo([]));
   };
 
   useEffect(() => {
@@ -193,15 +216,24 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
         {imgPath ? (
           <>
             <ImagePreview
-              src={`http://localhost:5000${imgPath}`}
+              src={isLocalImg ? imgPath : `http://localhost:5000${imgPath}`}
               alt="preview"
+              onError={handleError}
+              ref={imgRef}
             />
-            <Button onClick={deleteImg}>이미지 삭제</Button>
+            <Button onClick={deleteImg} isBorderd={true}>
+              이미지 삭제
+            </Button>
           </>
         ) : (
           <span>이미지를 등록해주세요</span>
         )}
-        <Button type="submit">{isNewOne ? "등록" : "수정"}</Button>
+        <Button type="submit" isBorderd={true}>
+          {isNewOne ? "등록" : "수정"}
+        </Button>
+        <Button type="button" onClick={deleteInfo} isBorderd={true}>
+          정보삭제
+        </Button>
       </ImageContainer>
     </Form>
   );
