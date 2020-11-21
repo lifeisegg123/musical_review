@@ -49,7 +49,7 @@ const Admin = () => {
           </div>
           <SearchBox>
             <TextInput type="text"></TextInput>
-            <Button isborderd={false}>
+            <Button isBorderd={false}>
               <MdSearch></MdSearch>
             </Button>
           </SearchBox>
@@ -90,8 +90,7 @@ const Layout = styled.div`
 const Container = styled.div`
   width: ${(props) => (props.wide ? "50vw" : "35vw")};
   min-width: ${(props) => (props.wide ? "570px" : "400px")};
-  height: 80vh;
-  min-height: 600px;
+  height: 600px;
   padding: 1% 1.5%;
   background-color: #ebeaea;
   display: flex;

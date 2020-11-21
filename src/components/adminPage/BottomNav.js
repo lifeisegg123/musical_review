@@ -84,17 +84,17 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
   };
   return (
     <Container>
-      <Button isborderd={true} onClick={handleDelete}>
+      <Button isBorderd={true} onClick={handleDelete}>
         <h5>삭제</h5>
       </Button>
       <PageChanger>
         <li>
-          <Button isborderd={true} onClick={handleFirstPageButton}>
+          <Button isBorderd={true} onClick={handleFirstPageButton}>
             <MdFirstPage></MdFirstPage>
           </Button>
         </li>
         <li>
-          <Button isborderd={true} onClick={handlePrevButton}>
+          <Button isBorderd={true} onClick={handlePrevButton}>
             <MdKeyboardArrowLeft></MdKeyboardArrowLeft>
           </Button>
         </li>
@@ -102,7 +102,7 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
           <li key={e}>
             <Button
               isClicked={e === curPage}
-              isborderd={true}
+              isBorderd={true}
               onClick={handlePageNumber}
             >
               {e}
@@ -110,17 +110,17 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
           </li>
         ))}
         <li>
-          <Button isborderd={true} onClick={handleNextButton}>
+          <Button isBorderd={true} onClick={handleNextButton}>
             <MdKeyboardArrowRight></MdKeyboardArrowRight>
           </Button>
         </li>
         <li>
-          <Button isborderd={true} onClick={handlelastPageButton}>
+          <Button isBorderd={true} onClick={handlelastPageButton}>
             <MdLastPage></MdLastPage>
           </Button>
         </li>
       </PageChanger>
-      <Button isborderd={true} onClick={handleAddButton}>
+      <Button isBorderd={true} onClick={handleAddButton}>
         <h5>추가</h5>
       </Button>
     </Container>
