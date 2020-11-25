@@ -7,6 +7,7 @@ import Button from "components/adminPage/Button";
 import InfoForm from "components/adminPage/InfoForm";
 import BottomNav from "components/adminPage/BottomNav";
 import ListBox from "components/adminPage/ListBox";
+import Header from "components/header/Header";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -36,48 +37,59 @@ const Admin = () => {
 
   return (
     <Layout>
-      <Container>
-        <ListHead>
-          <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <WhiteBox>카테고리</WhiteBox>
-            {dropbox && (
-              <DropdownBox>
-                <WhiteBox>카테고리</WhiteBox>
-                <WhiteBox>카테고리</WhiteBox>
-              </DropdownBox>
-            )}
-          </div>
-          <SearchBox>
-            <TextInput type="text"></TextInput>
-            <Button isBorderd={false}>
-              <MdSearch></MdSearch>
-            </Button>
-          </SearchBox>
-        </ListHead>
-        <ListBox dispatch={dispatch}></ListBox>
-        <BottomNav
-          dispatch={dispatch}
-          handleAddButton={handleAddButton}
-        ></BottomNav>
-      </Container>
-      <Container wide marginLeft="1vw">
-        {onEditing ? (
-          <InfoForm
+      <Header></Header>
+      <Wrapper>
+        <Container>
+          <ListHead>
+            <div
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <WhiteBox>카테고리</WhiteBox>
+              {dropbox && (
+                <DropdownBox>
+                  <WhiteBox>카테고리</WhiteBox>
+                  <WhiteBox>카테고리</WhiteBox>
+                </DropdownBox>
+              )}
+            </div>
+            <SearchBox>
+              <TextInput type="text"></TextInput>
+              <Button isBorderd={false}>
+                <MdSearch></MdSearch>
+              </Button>
+            </SearchBox>
+          </ListHead>
+          <ListBox dispatch={dispatch}></ListBox>
+          <BottomNav
             dispatch={dispatch}
-            isNewOne={isNewOne}
-            info={info}
-          ></InfoForm>
-        ) : (
-          <PlusButton onClick={handleAddButton}>
-            <AiFillPlusCircle />
-          </PlusButton>
-        )}
-      </Container>
+            handleAddButton={handleAddButton}
+          ></BottomNav>
+        </Container>
+        <Container wide marginLeft="1vw">
+          {onEditing ? (
+            <InfoForm
+              dispatch={dispatch}
+              isNewOne={isNewOne}
+              info={info}
+            ></InfoForm>
+          ) : (
+            <PlusButton onClick={handleAddButton}>
+              <AiFillPlusCircle />
+            </PlusButton>
+          )}
+        </Container>
+      </Wrapper>
     </Layout>
   );
 };
-
 const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 720px;
+`;
+const Wrapper = styled.div`
   width: 92vw;
   min-width: 1050px;
   height: 100vh;

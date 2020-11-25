@@ -1,12 +1,11 @@
-import { actions } from "action/admin";
 import React from "react";
-import { useDispatch } from "react-redux";
 import Login from "./Login";
 
+import axios from "axios";
+
 const Home = () => {
-  const dispatch = useDispatch();
   const test = () => {
-    dispatch(actions.requestPageList({ pageControl: "end" }));
+    axios.post("http://localhost:5000/musical/data-quick-generate");
   };
   return (
     <>
