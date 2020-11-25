@@ -40,7 +40,7 @@ const List = styled.li`
   align-items: center;
   background-color: white;
   border: solid 1px black;
-  margin-bottom: 3%;
+  margin-bottom: 15px;
 `;
 const Checkbox = styled.label`
   cursor: pointer;

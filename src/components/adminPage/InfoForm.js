@@ -231,9 +231,11 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
         <Button type="submit" isBorderd={true}>
           {isNewOne ? "등록" : "수정"}
         </Button>
-        <Button type="button" onClick={deleteInfo} isBorderd={true}>
-          정보삭제
-        </Button>
+        {!isNewOne && (
+          <Button type="button" onClick={deleteInfo} isBorderd={true}>
+            정보삭제
+          </Button>
+        )}
       </ImageContainer>
     </Form>
   );
