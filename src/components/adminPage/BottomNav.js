@@ -15,6 +15,10 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
   const maxPage = useSelector((state) => state.admin.maxPage);
 
   const [pageNumbers, setPageNumbers] = useState([]);
+  /*
+   * calculate page numbers with curent page
+   * @param{number}: current page
+   */
   const calculatePageButton = useCallback(
     (curValue) => {
       let pages = [];
@@ -41,6 +45,10 @@ const BottomNav = ({ dispatch, handleAddButton }) => {
   const handleDelete = () => {
     dispatch(actions.deleteInfo());
   };
+
+  /*
+   * when page number clicked, get list and set curent page state
+   */
   const handlePageNumber = (event) => {
     const target = Number(event.target.innerHTML);
     if (curPage === target) {

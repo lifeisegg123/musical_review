@@ -45,14 +45,15 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
   const [imgName, setImgName] = useState("");
   const [isLocalImg, setIsLocalImg] = useState(false);
   const imgRef = useRef();
-
+  /**
+   * when image is uploaded, change it into base64 form
+   */
   const onFileChange = (event) => {
     const {
       target: { files },
     } = event;
     const theFile = files[0];
     setIsLocalImg(true);
-    console.log(theFile);
     setImgName(theFile.name);
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
@@ -64,6 +65,9 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
     reader.readAsDataURL(theFile);
   };
 
+  /**
+   * If fail to get image, set block sign instead
+   */
   const handleError = () => {
     imgRef.current.src = blockSign;
   };
@@ -72,13 +76,16 @@ const InfoForm = ({ dispatch, isNewOne, info }) => {
     setImgName(null);
     setImgPath(null);
   };
-
+  /*
+   * Add new info
+   */
   const addInfo = (event) => {
     event.preventDefault();
     if (!title || !desc || !category) {
       alert("제목, 카테고리, 설명을 모두 입력하시기 바랍니다.");
       return;
     }
+    // handle error with regexp
     const dayRegExp = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
     if (startDate) {
       if (!dayRegExp.test(startDate)) {

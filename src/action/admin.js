@@ -6,6 +6,7 @@ import getPageApi, {
 } from "api/adminApi";
 import { all, call, put, take, fork, select } from "redux-saga/effects";
 
+// define types
 export const types = {
   REQUEST_PAGELIST: "admin/REQUEST_PAGELIST",
   SET_PAGELIST: "admin/SET_PAGELIST",
@@ -20,6 +21,8 @@ export const types = {
   ADD_DELETIONLIST: "admin/ADD_DELETIONLIST",
   REMOVE_DELETIONLIST: "admin/REMOVE_DELETIONLIST",
 };
+
+//define actions
 export const actions = {
   requestPageList: (data) => ({
     type: types.REQUEST_PAGELIST,
@@ -64,6 +67,9 @@ export const actions = {
   }),
 };
 
+/*
+ * get musical Info set, and set pagelist with result
+ */
 export function* getPageListSaga() {
   while (true) {
     const {
@@ -80,7 +86,9 @@ export function* getPageListSaga() {
     yield put(actions.setMaxPage(lastPageNum));
   }
 }
-
+/*
+ * get selected item's info
+ */
 export function* getCurrentInfoSaga() {
   while (true) {
     const { targetId } = yield take(types.REQUEST_CURINFO);
@@ -89,6 +97,9 @@ export function* getCurrentInfoSaga() {
   }
 }
 
+/*
+ * add new info
+ */
 export function* addInfoSaga() {
   while (true) {
     const { info } = yield take(types.ADD_INFO);
@@ -103,6 +114,9 @@ export function* addInfoSaga() {
   }
 }
 
+/*
+ * update selected info
+ */
 export function* updateInfoSaga() {
   while (true) {
     const { info } = yield take(types.UPDATE_INFO);
@@ -116,19 +130,25 @@ export function* updateInfoSaga() {
   }
 }
 
+/*
+ * delete selected info
+ */
 export function* deleteInfoSaga() {
   while (true) {
     yield take(types.DELETE_INFO);
+    //get current state from redux
     const { pageList, deletionList, curPage, maxPage } = yield select(
       (state) => state.admin
     );
     if (!deletionList.length) {
       alert("삭제할 목록이 선택되지 않았습니다.");
     }
+    //handle delete entire page
     const newPage =
       curPage === maxPage && pageList.length === deletionList.length
         ? curPage - 1
         : curPage;
+    //delete every item in deletion list
     for (const target of deletionList) {
       const res = yield call(deleteInfoApi, target);
       if (!res) {
