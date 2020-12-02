@@ -8,12 +8,10 @@ import InfoForm from "components/adminPage/InfoForm";
 import BottomNav from "components/adminPage/BottomNav";
 import ListBox from "components/adminPage/ListBox";
 import Header from "components/header/Header";
+import Category from "components/adminPage/Category";
 
 const Admin = () => {
   const dispatch = useDispatch();
-  const [dropbox, setDropbox] = useState(false);
-  const handleMouseEnter = () => setDropbox(true);
-  const handleMouseLeave = () => setDropbox(false);
 
   const currentInfo = useSelector((state) => state.admin.curInfo);
   const [info, setInfo] = useState({});
@@ -41,18 +39,7 @@ const Admin = () => {
       <Wrapper>
         <Container>
           <ListHead>
-            <div
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <WhiteBox>카테고리</WhiteBox>
-              {dropbox && (
-                <DropdownBox>
-                  <WhiteBox>카테고리</WhiteBox>
-                  <WhiteBox>카테고리</WhiteBox>
-                </DropdownBox>
-              )}
-            </div>
+            <Category dispatch={dispatch}></Category>
             <SearchBox>
               <TextInput type="text"></TextInput>
               <Button isBorderd={false}>
@@ -115,13 +102,7 @@ const ListHead = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const WhiteBox = styled.button`
-  background-color: white;
-  padding: 3px;
-  border-radius: 10%/20%;
-  border: solid 1px black;
-  cursor: pointer;
-`;
+
 const SearchBox = styled.form`
   background-color: white;
   padding: 3px;
@@ -142,21 +123,4 @@ const PlusButton = styled.div`
   }
 `;
 
-const DropdownBox = styled.div`
-  position: absolute;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border: solid 1px black;
-  & ${WhiteBox} {
-    border: none;
-    border-bottom: solid 1px black;
-    border-radius: 0;
-  }
-  & ${WhiteBox}:last-child {
-    border: none;
-  }
-`;
 export default Admin;

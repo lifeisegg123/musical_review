@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   curInfo: {},
   curPage: 1,
   maxPage: 1,
+  category: "전체",
 };
 
 const reducer = createReducer(INITIAL_STATE, {
@@ -25,6 +26,7 @@ const reducer = createReducer(INITIAL_STATE, {
     (state.deletionList = state.deletionList.filter(
       (e) => e !== action.targetId
     )),
+  [types.SET_CATEGORY]: (state, action) => (state.category = action.category),
 });
 
 export default reducer;

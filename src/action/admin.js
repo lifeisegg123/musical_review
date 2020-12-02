@@ -20,6 +20,7 @@ export const types = {
   SET_DELETIONLIST: "admin/SET_DELETIONLIST",
   ADD_DELETIONLIST: "admin/ADD_DELETIONLIST",
   REMOVE_DELETIONLIST: "admin/REMOVE_DELETIONLIST",
+  SET_CATEGORY: "admin/SET_CATEGORY",
 };
 
 //define actions
@@ -65,6 +66,7 @@ export const actions = {
     type: types.REMOVE_DELETIONLIST,
     targetId,
   }),
+  setCategory: (category) => ({ type: types.SET_CATEGORY, category }),
 };
 
 /*
@@ -73,8 +75,10 @@ export const actions = {
 export function* getPageListSaga() {
   while (true) {
     const {
-      data: { curPage, targetPage, pageControl, category },
+      data: { curPage, targetPage, pageControl },
     } = yield take(types.REQUEST_PAGELIST);
+    const category = yield select((state) => state.admin.category);
+    console.log(curPage, targetPage, category);
     const { data, lastPageNum } = yield call(getPageApi, {
       limitCount: 10,
       nowPage: curPage,
