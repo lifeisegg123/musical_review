@@ -276,7 +276,7 @@ const InfoItem = styled.li`
   border: solid 1px black;
   & h5 {
     width: 12%;
-    padding: 5px;
+    padding: 4px;
     margin: 0;
     border-right: solid 1px black;
   }
@@ -291,7 +291,7 @@ const InfoItem = styled.li`
     width: 88%;
   }
   & input[type="date"] {
-    width: 43%;
+    width: 43.5%;
   }
   & input[id="img-input"] {
     display: none;
@@ -299,7 +299,7 @@ const InfoItem = styled.li`
   & input[id="img-input"] + label {
     width: 3.5%;
     text-align: center;
-    padding: 3px 0;
+    padding: 2px 0;
     border-left: solid 1px black;
   }
 `;

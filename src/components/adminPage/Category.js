@@ -11,8 +11,11 @@ const Category = ({ dispatch }) => {
   const curCategory = useSelector((state) => state.admin.category);
   const handleClick = (event) => {
     const category = event.currentTarget.innerText;
-    console.log(category);
-    dispatch(actions.setCategory(category));
+    if (category === "전체") {
+      dispatch(actions.setCategory("all"));
+    } else {
+      dispatch(actions.setCategory(category));
+    }
     dispatch(actions.requestPageList(1));
     dispatch(actions.setCurPage(1));
   };
