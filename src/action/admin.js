@@ -78,7 +78,6 @@ export function* getPageListSaga() {
       data: { curPage, targetPage, pageControl },
     } = yield take(types.REQUEST_PAGELIST);
     const category = yield select((state) => state.admin.category);
-    console.log(curPage, targetPage, category);
     const { data, lastPageNum } = yield call(getPageApi, {
       limitCount: 10,
       nowPage: curPage,

@@ -3,6 +3,7 @@ import axios from "axios";
 const getPageApi = async function (dataToSend) {
   const result = await axios.get("http://localhost:5000/musical/pagelist", {
     params: dataToSend,
+    withCredentials: true,
   });
   const { data } = result;
   return data;
@@ -10,7 +11,10 @@ const getPageApi = async function (dataToSend) {
 
 export const getMusicalData = async function (targetId) {
   const result = await axios.get(
-    `http://localhost:5000/musical/musical-data/${targetId}`
+    `http://localhost:5000/musical/musical-data/${targetId}`,
+    {
+      withCredentials: true,
+    }
   );
   const {
     data: [res],
@@ -42,7 +46,7 @@ export const updateInfoApi = async function (data) {
 
 export const deleteInfoApi = async function (targetId) {
   const result = await axios
-    .patch(`http://localhost:5000/musical//del-musical-data/${targetId}`)
+    .patch(`http://localhost:5000/musical/del-musical-data/${targetId}`)
     .then(() => true)
     .catch(() => false);
   return result;

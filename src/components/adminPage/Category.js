@@ -22,7 +22,9 @@ const Category = ({ dispatch }) => {
 
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <WhiteBox>{curCategory}</WhiteBox>
+      <WhiteBox>
+        {curCategory && curCategory === "all" ? "전체" : curCategory}
+      </WhiteBox>
       {dropbox && (
         <DropdownBox>
           <WhiteBox onClick={handleClick}>전체</WhiteBox>
