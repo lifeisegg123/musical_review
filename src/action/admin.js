@@ -75,7 +75,7 @@ export const actions = {
 export function* getPageListSaga() {
   while (true) {
     const {
-      data: { curPage, targetPage, pageControl },
+      data: { curPage, targetPage, pageControl, findData },
     } = yield take(types.REQUEST_PAGELIST);
     const category = yield select((state) => state.admin.category);
     const { data, lastPageNum } = yield call(getPageApi, {
@@ -84,6 +84,7 @@ export function* getPageListSaga() {
       toPage: targetPage,
       pageControl,
       category,
+      findData,
     });
     yield put(actions.setPageList(data));
     yield put(actions.setMaxPage(lastPageNum));

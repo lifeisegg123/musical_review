@@ -9,6 +9,7 @@ import BottomNav from "components/adminPage/BottomNav";
 import ListBox from "components/adminPage/ListBox";
 import Header from "components/header/Header";
 import Category from "components/adminPage/Category";
+import { actions } from "action/admin";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,19 @@ const Admin = () => {
     }
   }, [info]);
 
+  const [searchData, setsearchData] = useState("");
+  const handleSearchDataChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setsearchData(value);
+  };
+  const handleSearch = (event) => {
+    event.preventDefault();
+    dispatch(actions.requestPageList({ findData: searchData }));
+    dispatch(actions.setCurPage(1));
+  };
+
   return (
     <Layout>
       <Header></Header>
@@ -40,9 +54,13 @@ const Admin = () => {
         <Container>
           <ListHead>
             <Category dispatch={dispatch}></Category>
-            <SearchBox>
-              <TextInput type="text"></TextInput>
-              <Button isBorderd={false}>
+            <SearchBox onSubmit={handleSearch}>
+              <TextInput
+                type="text"
+                value={searchData}
+                onChange={handleSearchDataChange}
+              ></TextInput>
+              <Button isBorderd={false} type="submit">
                 <MdSearch></MdSearch>
               </Button>
             </SearchBox>
