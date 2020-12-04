@@ -22,10 +22,6 @@ const Home = () => {
           </p>
         </DescBox>
         <Banner></Banner>
-        {/* <form class="searchbox mobile-display">
-          <input type="text" placeholder="검색창"></input>
-          <i class="fas fa-search searchbox--icon"></i>
-        </form> */}
         <MainList></MainList>
       </Wrapper>
     </>

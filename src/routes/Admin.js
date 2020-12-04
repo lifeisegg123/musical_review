@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MdSearch, AiFillPlusCircle } from "react-icons/all";
+import { AiFillPlusCircle } from "react-icons/all";
 import styled from "styled-components";
 
-import Button from "components/adminPage/Button";
 import InfoForm from "components/adminPage/InfoForm";
 import BottomNav from "components/adminPage/BottomNav";
 import ListBox from "components/adminPage/ListBox";
 import Header from "components/header/Header";
 import Category from "components/adminPage/Category";
 import { actions } from "action/admin";
+import SearchBar from "components/SearchBar";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -34,16 +34,8 @@ const Admin = () => {
     }
   }, [info]);
 
-  const [searchData, setsearchData] = useState("");
-  const handleSearchDataChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setsearchData(value);
-  };
-  const handleSearch = (event) => {
-    event.preventDefault();
-    dispatch(actions.requestPageList({ findData: searchData }));
+  const handleSearch = (targetString) => {
+    dispatch(actions.requestPageList({ findData: targetString }));
     dispatch(actions.setCurPage(1));
   };
 
@@ -54,16 +46,7 @@ const Admin = () => {
         <Container>
           <ListHead>
             <Category dispatch={dispatch}></Category>
-            <SearchBox onSubmit={handleSearch}>
-              <TextInput
-                type="text"
-                value={searchData}
-                onChange={handleSearchDataChange}
-              ></TextInput>
-              <Button isBorderd={false} type="submit">
-                <MdSearch></MdSearch>
-              </Button>
-            </SearchBox>
+            <SearchBar handleSearch={handleSearch}></SearchBar>
           </ListHead>
           <ListBox dispatch={dispatch}></ListBox>
           <BottomNav
@@ -119,17 +102,6 @@ const ListHead = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-`;
-
-const SearchBox = styled.form`
-  background-color: white;
-  padding: 3px;
-  border-radius: 4px;
-  border: solid 1px black;
-`;
-
-const TextInput = styled.input.attrs({ type: `text` })`
-  border: none;
 `;
 
 const PlusButton = styled.div`

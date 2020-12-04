@@ -1,11 +1,13 @@
+import SearchBar from "components/SearchBar";
 import React from "react";
 import styled from "styled-components";
 
-const Header = () => {
+const Header = ({ searchBar }) => {
   return (
     <HeaderWrapper>
       <HeaderContainer>
         <h1>페이지 제목</h1>
+        <SearchBar></SearchBar>
       </HeaderContainer>
     </HeaderWrapper>
   );
@@ -25,6 +27,9 @@ const HeaderWrapper = styled.div`
 const HeaderContainer = styled.div`
   width: 90%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   & h1 {
     color: #383fe8;
     margin: 0;
