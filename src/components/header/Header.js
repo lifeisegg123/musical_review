@@ -19,7 +19,7 @@ const HeaderWrapper = styled.div`
   width: 100vw;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1;
 `;
 
 const HeaderContainer = styled.div`
