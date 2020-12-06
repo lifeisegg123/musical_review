@@ -34,9 +34,18 @@ const MainList = () => {
   const sliderSettings = {
     slidesToShow: 5,
     slidesToScroll: 1,
+    swipeToSlide: true,
     infinite: false,
     prevArrow: <LeftArrow />,
     nextArrow: <RightArrow />,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3.3,
+        },
+      },
+    ],
   };
   const slideArrayForTest = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const slider = useRef();
@@ -86,7 +95,7 @@ const MainListBox = styled.div`
   width: 80vw;
   background-color: #f2f2f2;
   filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.5));
-  border-radius: 2%;
+  border-radius: 10px;
 `;
 
 const SliderWrapper = styled.div`

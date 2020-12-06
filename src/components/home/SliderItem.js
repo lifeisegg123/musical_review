@@ -19,6 +19,10 @@ const SliderItemWrapper = styled.div`
   & img {
     width: 12vw;
     height: 33vh;
-    border-radius: 3%;
+    border-radius: 5px;
+    @media only screen and (max-width: 768px) {
+      width: 20vw;
+      height: 20vh;
+    }
   }
 `;
