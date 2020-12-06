@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   curInfo: {},
   curPage: 1,
   maxPage: 1,
-  category: "all",
+  category: "전체",
 };
 
 const reducer = createReducer(INITIAL_STATE, {

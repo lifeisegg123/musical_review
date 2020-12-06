@@ -83,7 +83,7 @@ export function* getPageListSaga() {
       nowPage: curPage,
       toPage: targetPage,
       pageControl,
-      category,
+      category: category === "전체" ? "all" : category,
       findData,
     });
     yield put(actions.setPageList(data));

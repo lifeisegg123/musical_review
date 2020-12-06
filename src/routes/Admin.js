@@ -41,7 +41,7 @@ const Admin = () => {
 
   return (
     <Layout>
-      <Header></Header>
+      <Header isAdminPage={true}></Header>
       <Wrapper>
         <Container>
           <ListHead>

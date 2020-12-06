@@ -3,7 +3,7 @@ import { MdSearch } from "react-icons/md";
 import styled from "styled-components";
 import Button from "./adminPage/Button";
 
-const SearchBar = ({ handleSearch }) => {
+const SearchBar = ({ handleSearch, width, className }) => {
   const [searchData, setsearchData] = useState("");
   const handleSearchDataChange = (event) => {
     const {
@@ -16,11 +16,12 @@ const SearchBar = ({ handleSearch }) => {
     handleSearch(searchData);
   };
   return (
-    <SearchBox onSubmit={handleSubmit}>
+    <SearchBox onSubmit={handleSubmit} className={className}>
       <TextInput
         type="text"
         value={searchData}
         onChange={handleSearchDataChange}
+        width={width}
       ></TextInput>
       <Button isBorderd={false} type="submit">
         <MdSearch></MdSearch>
@@ -40,4 +41,5 @@ const SearchBox = styled.form`
 
 const TextInput = styled.input.attrs({ type: `text` })`
   border: none;
+  ${(props) => props.width && `width: ${props.width}`}
 `;

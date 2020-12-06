@@ -5,10 +5,11 @@ import pageImg from "mockup/img/pageImg.png";
 import Banner from "components/home/Banner";
 import MainList from "components/home/MainList";
 
-const Home = () => {
+const Home = ({ history }) => {
+  console.log(history);
   return (
     <>
-      <Header></Header>
+      <Header history={history}></Header>
       <Wrapper>
         <DescBox>
           <PageDescImg src={pageImg} alt="pageImg" />
