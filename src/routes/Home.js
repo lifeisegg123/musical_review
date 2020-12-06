@@ -46,14 +46,19 @@ const DescBox = styled.div`
   background-color: #232323;
   padding: 20px 15px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 2% / 4%;
+  border-radius: 10px;
   & p {
     color: white;
     width: 45%;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 80vw;
+    min-width: 0px;
+    height: 80vh;
   }
 `;
 const PageDescImg = styled.img`
   width: 45%;
   height: 75%;
-  border-radius: 1%;
+  border-radius: 5px;
 `;
