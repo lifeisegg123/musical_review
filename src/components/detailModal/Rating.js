@@ -42,6 +42,10 @@ const RatingBox = styled.div`
   & span:first-child {
     width: 70%;
   }
+  & h4 {
+    white-space: nowrap;
+    margin: 0;
+  }
 `;
 const StarList = styled.ul`
   list-style: none;

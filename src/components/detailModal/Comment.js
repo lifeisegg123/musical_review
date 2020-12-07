@@ -18,10 +18,7 @@ const Comment = () => {
         </NicknameBox>
       </ProfileBox>
       <Message>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's
-        </p>
+        <p>Lorem Ipsum is simply dummy text of the printing a</p>
       </Message>
     </CommentContainer>
   );
@@ -44,10 +41,15 @@ const ProfileBox = styled.span`
   justify-content: space-around;
   width: 25%;
   border-right: solid 1px black;
+  padding: 0 5px;
   & img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    @media only screen and (max-width: 768px) {
+      width: 30px;
+      height: 30px;
+    }
   }
 `;
 const NicknameBox = styled.div`

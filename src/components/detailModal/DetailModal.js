@@ -37,7 +37,7 @@ const DetailModal = () => {
             </ButtonBox>
           </DescBox>
         </InfoContainer>
-        <CommentsContainer class="detailmodal__comments">
+        <CommentsContainer>
           <Comment></Comment>
           <Comment></Comment>
           <Comment></Comment>
@@ -78,7 +78,8 @@ const Wrapper = styled.div`
   border-radius: 20px;
   z-index: 3;
   @media only screen and (max-width: 768px) {
-    width: 85vw;
+    width: 90vw;
+    min-width: 0px;
   }
 `;
 const InfoContainer = styled.div`
@@ -87,6 +88,7 @@ const InfoContainer = styled.div`
   justify-content: space-around;
   width: 100%;
   border-bottom: solid 2px #494949;
+  padding-bottom: 10px;
 `;
 const ImgBox = styled.span`
   display: flex;
@@ -106,7 +108,7 @@ const DescBox = styled.span`
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 const Desc = styled.div`
   text-align: center;
@@ -159,7 +161,7 @@ const InputBox = styled.div`
     margin: auto;
     margin-right: 5px;
     height: 90%;
-    width: 80%;
+    width: 70%;
     border: none;
     background-color: #fffbfb;
   }
