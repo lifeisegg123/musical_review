@@ -26,7 +26,7 @@ const Rating = () => {
         </StarList>
       </span>
       <span>
-        <h4>4.2 점</h4>
+        <p>4.2 점</p>
       </span>
     </RatingBox>
   );
@@ -42,9 +42,11 @@ const RatingBox = styled.div`
   & span:first-child {
     width: 70%;
   }
-  & h4 {
+  & p {
     white-space: nowrap;
     margin: 0;
+    font-size: 13px;
+    font-weight: bold;
   }
 `;
 const StarList = styled.ul`

@@ -135,6 +135,9 @@ const ButtonBox = styled.div`
     border: none;
     border-radius: 4px;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
 `;
 
