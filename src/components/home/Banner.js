@@ -28,8 +28,12 @@ const BannerContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  & h2 {
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  }
   & p {
     width: 40%;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
   }
   @media only screen and (max-width: 768px) {
     height: 25vh;
