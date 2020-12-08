@@ -1,84 +1,24 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-
-import Slider from "react-slick";
-import SliderItem from "./SliderItem";
-
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-
-import slideImg from "mockup/img/listitem.jpg";
+import Carousel from "./Carousel";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const LeftArrow = ({ onClick, style, className }) => {
-  return (
-    <MdKeyboardArrowLeft
-      className={className}
-      onClick={onClick}
-      style={{ ...style, color: "black" }}
-    ></MdKeyboardArrowLeft>
-  );
-};
-const RightArrow = ({ onClick, style, className }) => {
-  return (
-    <MdKeyboardArrowRight
-      className={className}
-      onClick={onClick}
-      style={{ ...style, color: "black" }}
-    ></MdKeyboardArrowRight>
-  );
-};
-
 const MainList = () => {
-  const sliderSettings = {
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    swipeToSlide: true,
-    infinite: false,
-    prevArrow: <LeftArrow />,
-    nextArrow: <RightArrow />,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3.3,
-        },
-      },
-    ],
-  };
-  const slideArrayForTest = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  const slider = useRef();
-  const testSlick = () => {
-    slider.current.slickGoTo(3);
-    console.log(slider.current);
-  };
   return (
     <MainListBox>
-      <button onClick={testSlick}>test</button>
       <SliderWrapper>
         <h4 class="mainlist__category">카테고리1</h4>
-        <Slider {...sliderSettings} ref={slider}>
-          {slideArrayForTest.map((value) => (
-            <SliderItem image={slideImg} title={value}></SliderItem>
-          ))}
-        </Slider>
+        <Carousel slidesToShow="5"></Carousel>
       </SliderWrapper>
       <SliderWrapper>
         <h4 class="mainlist__category">카테고리2</h4>
-        <Slider {...sliderSettings}>
-          {slideArrayForTest.map(() => (
-            <SliderItem image={slideImg} title="테스트"></SliderItem>
-          ))}
-        </Slider>
+        <Carousel slidesToShow="5"></Carousel>
       </SliderWrapper>
       <SliderWrapper>
         <h4 class="mainlist__category">카테고리3</h4>
-        <Slider {...sliderSettings}>
-          {slideArrayForTest.map(() => (
-            <SliderItem image={slideImg} title="테스트"></SliderItem>
-          ))}
-        </Slider>
+        <Carousel slidesToShow="5"></Carousel>
       </SliderWrapper>
     </MainListBox>
   );

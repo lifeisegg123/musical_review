@@ -17,7 +17,7 @@ const SliderItemWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   & img {
-    width: 12vw;
+    width: 11vw;
     height: 33vh;
     border-radius: 5px;
     @media only screen and (max-width: 768px) {
