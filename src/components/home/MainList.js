@@ -9,15 +9,15 @@ const MainList = () => {
   return (
     <MainListBox>
       <SliderWrapper>
-        <h4 class="mainlist__category">카테고리1</h4>
+        <h4>카테고리1</h4>
         <Carousel slidesToShow="5"></Carousel>
       </SliderWrapper>
       <SliderWrapper>
-        <h4 class="mainlist__category">카테고리2</h4>
+        <h4>카테고리2</h4>
         <Carousel slidesToShow="5"></Carousel>
       </SliderWrapper>
       <SliderWrapper>
-        <h4 class="mainlist__category">카테고리3</h4>
+        <h4>카테고리3</h4>
         <Carousel slidesToShow="5"></Carousel>
       </SliderWrapper>
     </MainListBox>

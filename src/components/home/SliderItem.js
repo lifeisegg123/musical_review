@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const SliderItem = ({ image, title }) => {
+  const test = () => console.log("test");
   return (
-    <SliderItemWrapper>
+    <SliderItemWrapper onClick={test}>
       <img src={image} alt={title} />
       <p>{title}</p>
     </SliderItemWrapper>
@@ -16,13 +17,18 @@ const SliderItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 10px;
+  transition: 100ms linear;
+  &:hover {
+    transform: scale(1.1);
+  }
   & img {
-    width: 11vw;
-    height: 33vh;
+    width: 120px;
+    height: 180px;
     border-radius: 5px;
     @media only screen and (max-width: 768px) {
-      width: 20vw;
-      height: 19vh;
+      width: 70px;
+      height: 105px;
     }
   }
 `;

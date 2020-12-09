@@ -8,7 +8,7 @@ const DetailedResult = () => {
     <Wrapper>
       <ResultList>
         <ListItemBox>
-          <div class="results__lists--item">
+          <div>
             <img src={Img} alt="onscreen" />
             <h5>제목</h5>
           </div>
@@ -19,7 +19,7 @@ const DetailedResult = () => {
           </p>
         </ListItemBox>
         <ListItemBox>
-          <div class="results__lists--item">
+          <div>
             <img src={Img} alt="onscreen" />
             <h5>제목</h5>
           </div>
