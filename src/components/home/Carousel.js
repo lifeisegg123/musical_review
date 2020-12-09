@@ -26,7 +26,7 @@ const RightArrow = ({ onClick, style, className }) => {
 
 const Carousel = ({ slidesToShow }) => {
   const sliderSettings = {
-    slidesToShow,
+    slidesToShow: Number(slidesToShow),
     slidesToScroll: 1,
     swipeToSlide: true,
     infinite: false,
@@ -41,7 +41,7 @@ const Carousel = ({ slidesToShow }) => {
       },
     ],
   };
-  const slideArrayForTest = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  const slideArrayForTest = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const slider = useRef();
   /* const testSlick = () => {
     slider.current.slickGoTo(3);
