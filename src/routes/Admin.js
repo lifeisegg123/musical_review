@@ -40,7 +40,7 @@ const Admin = () => {
   };
 
   return (
-    <Layout>
+    <>
       <Header isAdminPage={true}></Header>
       <Wrapper>
         <Container>
@@ -68,19 +68,13 @@ const Admin = () => {
           )}
         </Container>
       </Wrapper>
-    </Layout>
+    </>
   );
 };
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 720px;
-`;
+
 const Wrapper = styled.div`
   width: 92vw;
   min-width: 1050px;
-  height: 100vh;
   min-height: 600px;
   display: flex;
   align-items: center;

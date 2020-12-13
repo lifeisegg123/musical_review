@@ -36,6 +36,7 @@ export default ListItem;
 const List = styled.li`
   cursor: pointer;
   width: 100%;
+  height: 29.6px;
   display: flex;
   align-items: center;
   background-color: white;
@@ -45,7 +46,7 @@ const List = styled.li`
 const Checkbox = styled.label`
   cursor: pointer;
   width: 23px;
-  height: 27px;
+  height: 30px;
   margin: 0;
   display: block;
 `;
