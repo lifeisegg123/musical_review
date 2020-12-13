@@ -23,7 +23,7 @@ const BannerContainer = styled.div`
   background-image: url(${(props) => props.backgroundImage});
   background-size: cover;
   width: 100%;
-  height: 250px;
+  height: 150px;
   display: flex;
   justify-content: space-around;
   align-items: center;
