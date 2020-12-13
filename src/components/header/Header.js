@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import styled from "styled-components";
 import DropBox from "components/DropBox";
 import SearchBar from "components/SearchBar";
 
-const Header = ({ isAdminPage, history }) => {
+const Header = forwardRef(({ isAdminPage, history }, ref) => {
   const listForDropbox = ["로그인", "회원가입"];
   const handleDropBox = (event) => {
     const target = event.currentTarget.innerText;
@@ -22,7 +22,7 @@ const Header = ({ isAdminPage, history }) => {
   const handleMobileSearchBar = () => setMobileSearchBar(!mobileSearchBar);
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper ref={ref}>
       <HeaderContainer>
         <h2>페이지 제목</h2>
         {!isAdminPage && (
@@ -48,7 +48,7 @@ const Header = ({ isAdminPage, history }) => {
       </HeaderContainer>
     </HeaderWrapper>
   );
-};
+});
 
 export default Header;
 

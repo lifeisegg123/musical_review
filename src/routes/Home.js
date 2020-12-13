@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import Header from "components/header/Header";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import pageImg from "mockup/img/pageImg.png";
 import Banner from "components/home/Banner";
 import MainList from "components/home/MainList";
+import { IoMdArrowRoundDown } from "react-icons/io";
 
 const Home = ({ history }) => {
-  console.log(history);
+  const buttonRef = useRef();
+  const headerRef = useRef();
+  const handleScroll = () => {
+    window.scroll({
+      top: buttonRef.current.offsetTop - headerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
-      <Header history={history}></Header>
+      <Header history={history} ref={headerRef}></Header>
       <Wrapper>
         <DescBox>
           <PageDescImg src={pageImg} alt="pageImg" />
@@ -22,7 +30,12 @@ const Home = ({ history }) => {
             typesetting, remaining essentially unchanged.
           </p>
         </DescBox>
-        <Banner></Banner>
+        <Button onClick={handleScroll}>
+          <IoMdArrowRoundDown />
+        </Button>
+        <div ref={buttonRef}>
+          <Banner></Banner>
+        </div>
         <MainList></MainList>
       </Wrapper>
     </>
@@ -39,7 +52,7 @@ const DescBox = styled.div`
   width: 65vw;
   min-width: 400px;
   height: 450px;
-  margin: 20vh auto;
+  margin: 5vh auto;
   background-color: #232323;
   padding: 20px 15px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -58,4 +71,27 @@ const PageDescImg = styled.img`
   width: 45%;
   height: 75%;
   border-radius: 5px;
+`;
+
+const blink = keyframes`
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const Button = styled.div`
+  width: 100px;
+  background-color: white;
+  margin: auto;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3),
+    -5px -5px 10px rgba(245, 245, 245, 0.7);
+  animation: 1s ${blink} linear infinite alternate;
+  & svg {
+    font-size: 30px;
+  }
 `;
