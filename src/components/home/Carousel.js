@@ -50,7 +50,7 @@ const Carousel = ({ slidesToShow }) => {
   return (
     <Slider {...sliderSettings} ref={slider}>
       {slideArrayForTest.map((value) => (
-        <SliderItem image={slideImg} title={value}></SliderItem>
+        <SliderItem image={slideImg} title={value} key={value}></SliderItem>
       ))}
     </Slider>
   );
