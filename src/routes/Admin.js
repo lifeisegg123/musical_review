@@ -79,7 +79,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: auto;
+  margin: 5vh auto 0 auto;
 `;
 const Container = styled.div`
   width: ${(props) => (props.wide ? "50vw" : "35vw")};
