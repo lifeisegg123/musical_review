@@ -10,15 +10,15 @@ const MainList = () => {
     <MainListBox>
       <SliderWrapper>
         <h4>카테고리1</h4>
-        <Carousel slidesToShow="5"></Carousel>
+        <Carousel slidesToShow="6"></Carousel>
       </SliderWrapper>
       <SliderWrapper>
         <h4>카테고리2</h4>
-        <Carousel slidesToShow="5"></Carousel>
+        <Carousel slidesToShow="6"></Carousel>
       </SliderWrapper>
       <SliderWrapper>
         <h4>카테고리3</h4>
-        <Carousel slidesToShow="5"></Carousel>
+        <Carousel slidesToShow="6"></Carousel>
       </SliderWrapper>
     </MainListBox>
   );
@@ -32,10 +32,8 @@ const MainListBox = styled.div`
   align-items: center;
   margin: 30px auto;
   padding: 20px;
-  width: 80vw;
-  background-color: #f2f2f2;
-  filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.5));
-  border-radius: 10px;
+  width: 90%;
+  color: #e5e5e5;
 `;
 
 const SliderWrapper = styled.div`

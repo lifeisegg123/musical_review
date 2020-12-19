@@ -53,12 +53,11 @@ const Header = forwardRef(({ isAdminPage, history }, ref) => {
 export default Header;
 
 const HeaderWrapper = styled.div`
-  border-bottom: solid 1px #494949;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.darker};
   width: 100%;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10;
 `;
 
 const HeaderContainer = styled.div`
@@ -68,10 +67,9 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   & h2 {
-    color: #383fe8;
+    color: ${({ theme }) => theme.colors.pageTheme};
     margin: 0;
     padding: 20px 0;
-    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
   }
   @media only screen and (max-width: 768px) {
   }
@@ -93,10 +91,10 @@ const UserLinks = styled.span`
 `;
 
 const StyledLink = styled(Link)`
-  color: black;
+  color: ${({ theme }) => theme.colors.brightest};
   text-decoration: none;
   font-size: 12px;
-  background-color: #eaeaea;
+  background-color: ${({ theme }) => theme.colors.bright};
   padding: 1.5px 5px 5px 5px;
   border-radius: 3px;
   white-space: nowrap;
@@ -104,6 +102,7 @@ const StyledLink = styled(Link)`
 
 const ReflectiveDropbox = styled.span`
   display: none;
+  color: ${({ theme }) => theme.colors.brightest};
   @media only screen and (max-width: 768px) {
     display: flex;
     justify-content: space-around;

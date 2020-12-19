@@ -272,7 +272,7 @@ const InfoItem = styled.li`
   align-items: center;
   text-align: center;
   justify-content: space-between;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.brighter};
   border: solid 1px black;
   & h5 {
     width: 12%;
@@ -286,6 +286,7 @@ const InfoItem = styled.li`
   & input {
     border: none;
     height: 90%;
+    background-color: ${({ theme }) => theme.colors.brighter};
   }
   & input[type="text"] {
     width: 88%;
@@ -305,6 +306,10 @@ const InfoItem = styled.li`
 `;
 const ImageContainer = styled.div`
   height: 40%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
 `;
 
 const ImagePreview = styled.img`

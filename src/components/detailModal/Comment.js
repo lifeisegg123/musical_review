@@ -29,7 +29,7 @@ export default Comment;
 const CommentContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  background-color: #f2f2f2;
+  background-color: ${({ theme }) => theme.colors.dark};
   width: 90%;
   height: 60px;
   margin: 5px auto;

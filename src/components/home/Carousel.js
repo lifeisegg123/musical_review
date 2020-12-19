@@ -10,7 +10,7 @@ const LeftArrow = ({ onClick, style, className }) => {
     <MdKeyboardArrowLeft
       className={className}
       onClick={onClick}
-      style={{ ...style, color: "black" }}
+      style={{ ...style, color: "#e5e5e5" }}
     ></MdKeyboardArrowLeft>
   );
 };
@@ -19,7 +19,7 @@ const RightArrow = ({ onClick, style, className }) => {
     <MdKeyboardArrowRight
       className={className}
       onClick={onClick}
-      style={{ ...style, color: "black" }}
+      style={{ ...style, color: "#e5e5e5" }}
     ></MdKeyboardArrowRight>
   );
 };
@@ -27,7 +27,7 @@ const RightArrow = ({ onClick, style, className }) => {
 const Carousel = ({ slidesToShow }) => {
   const sliderSettings = {
     slidesToShow: Number(slidesToShow),
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     swipeToSlide: true,
     infinite: false,
     prevArrow: <LeftArrow />,

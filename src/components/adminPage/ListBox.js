@@ -34,4 +34,5 @@ const ListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  gap: 12px;
 `;

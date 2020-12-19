@@ -39,9 +39,8 @@ const List = styled.li`
   height: 29.6px;
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.brighter};
   border: solid 1px black;
-  margin-bottom: 15px;
 `;
 const Checkbox = styled.label`
   cursor: pointer;

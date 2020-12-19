@@ -14,21 +14,18 @@ const SliderItem = ({ image, title }) => {
 export default SliderItem;
 
 const SliderItemWrapper = styled.div`
+  height: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
-  transition: 100ms linear;
+  transition: 200ms linear;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   & img {
-    width: 120px;
-    height: 180px;
+    width: 60%;
+    height: 80%;
     border-radius: 5px;
-    @media only screen and (max-width: 768px) {
-      width: 70px;
-      height: 105px;
-    }
   }
 `;

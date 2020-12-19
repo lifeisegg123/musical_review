@@ -23,7 +23,7 @@ const SearchBar = ({ handleSearch, width, className }) => {
         onChange={handleSearchDataChange}
         width={width}
       ></TextInput>
-      <Button isBorderd={false} type="submit">
+      <Button type="submit">
         <MdSearch></MdSearch>
       </Button>
     </SearchBox>
@@ -33,13 +33,15 @@ const SearchBar = ({ handleSearch, width, className }) => {
 export default SearchBar;
 
 const SearchBox = styled.form`
-  background-color: white;
+  background-color: #121212;
   padding: 3px;
   border-radius: 4px;
-  border: solid 1px black;
+  border: solid 1px ${({ theme }) => theme.colors.brightest};
 `;
 
 const TextInput = styled.input.attrs({ type: `text` })`
+  background-color: ${({ theme }) => theme.colors.darkerest};
   border: none;
+  color: ${({ theme }) => theme.colors.brightest};
   ${(props) => props.width && `width: ${props.width}`}
 `;

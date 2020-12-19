@@ -20,7 +20,7 @@ const Home = ({ history }) => {
       <Header history={history} ref={headerRef}></Header>
       <Wrapper>
         <DescBox>
-          <PageDescImg src={pageImg} alt="pageImg" />
+          <img src={pageImg} alt="PageImg" />
           <p>
             페이지 설명 Lorem Ipsum is simply dummy text of the printing and
             typesetting industry. Lorem Ipsum has been the industry's standard
@@ -46,31 +46,31 @@ export default Home;
 
 const Wrapper = styled.div``;
 const DescBox = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 65vw;
-  min-width: 400px;
+  width: 100%;
   height: 450px;
-  margin: 5vh auto;
-  background-color: #232323;
-  padding: 20px 15px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 10px;
+  margin: 5vh 0;
+  padding: 20px 0;
+  background-size: cover;
   & p {
-    color: white;
+    color: black;
     width: 45%;
+    text-shadow: -1px 0 ${({ theme }) => theme.colors.brightest},
+      0 1px ${({ theme }) => theme.colors.brightest},
+      1px 0 ${({ theme }) => theme.colors.brightest},
+      0 -1px ${({ theme }) => theme.colors.brightest};
+    z-index: 1;
   }
-  @media only screen and (max-width: 768px) {
-    width: 80vw;
-    min-width: 0px;
-    height: 80vh;
+  & img {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.7;
+    height: 100%;
+    width: 100%;
   }
-`;
-const PageDescImg = styled.img`
-  width: 45%;
-  height: 75%;
-  border-radius: 5px;
 `;
 
 const blink = keyframes`
@@ -86,12 +86,10 @@ const blink = keyframes`
 
 const Button = styled.div`
   width: 100px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.brightest};
   margin: auto;
   text-align: center;
   border-radius: 5px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3),
-    -5px -5px 10px rgba(245, 245, 245, 0.7);
   animation: 1s ${blink} linear infinite alternate;
   & svg {
     font-size: 30px;

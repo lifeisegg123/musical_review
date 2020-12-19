@@ -58,8 +58,8 @@ const Blur = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background-color: #f2f2f2;
-  opacity: 0.5;
+  background-color: ${({ theme }) => theme.colors.darkest};
+  opacity: 0.3;
   z-index: 2;
 `;
 
@@ -73,7 +73,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.darker};
+  color: ${({ theme }) => theme.colors.brightest};
   padding: 15px;
   border-radius: 20px;
   z-index: 3;
@@ -89,7 +90,7 @@ const InfoContainer = styled.div`
   justify-content: space-around;
   width: 100%;
   border-bottom: solid 2px #494949;
-  padding-bottom: 10px;
+  padding: 10px 0;
 `;
 const ImgBox = styled.span`
   display: flex;
@@ -118,7 +119,7 @@ const Desc = styled.div`
     width: 100px;
     margin: 0 auto;
     padding-bottom: 10px;
-    border-bottom: solid 2px black;
+    border-bottom: solid 4px ${({ theme }) => theme.colors.bright};
   }
   & p {
     font-size: 14px;
@@ -129,7 +130,7 @@ const ButtonBox = styled.div`
   justify-content: space-around;
   align-items: center;
   & button {
-    background-color: #ffa0a0;
+    background-color: #ff8383;
     width: 80px;
     height: 30px;
     border: none;
@@ -149,12 +150,10 @@ const CommentsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #494949;
-  border-radius: 15px;
 `;
 
 const InputBox = styled.div`
-  background-color: #fffbfb;
+  background-color: ${({ theme }) => theme.colors.bright};
   margin-top: 15px;
   padding: 5px 0;
   width: 90%;
@@ -167,13 +166,15 @@ const InputBox = styled.div`
     height: 90%;
     width: 70%;
     border: none;
-    background-color: #fffbfb;
+    background-color: ${({ theme }) => theme.colors.bright};
+    color: ${({ theme }) => theme.colors.brightest};
   }
   & button {
-    background-color: #dad5d5;
     border: none;
     width: 55px;
     height: 25px;
     border-radius: 4%;
+    background-color: ${({ theme }) => theme.colors.dark};
+    color: ${({ theme }) => theme.colors.brightest};
   }
 `;

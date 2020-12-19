@@ -21,9 +21,9 @@ const SliderContainer = styled.div`
   margin: 5vh auto;
   width: 75vw;
   padding: 10px 30px;
-  background-color: #dfdfdf;
+  background-color: ${({ theme }) => theme.colors.darker};
+  color: ${({ theme }) => theme.colors.brightest};
   border-radius: 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   & h3 {
     margin: 0 0 0 20px;

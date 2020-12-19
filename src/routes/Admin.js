@@ -86,7 +86,7 @@ const Container = styled.div`
   min-width: ${(props) => (props.wide ? "570px" : "400px")};
   height: 600px;
   padding: 1% 1.5%;
-  background-color: #ebeaea;
+  background-color: ${({ theme }) => theme.colors.bright};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

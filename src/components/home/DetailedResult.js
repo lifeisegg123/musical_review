@@ -50,10 +50,9 @@ export default DetailedResult;
 const Wrapper = styled.div`
   margin: 5vh auto;
   width: 75vw;
-  background-color: #f2f2f2;
+  color: ${({ theme }) => theme.colors.brightest};
   padding: 10px;
   border-radius: 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   & ul {
     list-style: none;
   }
@@ -73,7 +72,7 @@ const ListItemBox = styled.li`
   width: 95%;
   margin: 0 auto;
   padding: 10px;
-  border-bottom: solid 1px black;
+  border-bottom: solid 7px ${({ theme }) => theme.colors.bright};
   & div > img {
     width: 100px;
     height: 180px;

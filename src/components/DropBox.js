@@ -19,7 +19,7 @@ const DropBox = ({
       className={className}
     >
       {typeof displayMessege === "string" ? (
-        <WhiteBox>{displayMessege}</WhiteBox>
+        <ItemBox>{displayMessege}</ItemBox>
       ) : (
         displayMessege
       )}
@@ -28,9 +28,9 @@ const DropBox = ({
         <DropdownBox>
           {listInDropbox &&
             listInDropbox.map((value) => (
-              <WhiteBox key={value} onClick={handleDropboxClick}>
+              <ItemBox key={value} onClick={handleDropboxClick}>
                 {value}
-              </WhiteBox>
+              </ItemBox>
             ))}
         </DropdownBox>
       )}
@@ -51,8 +51,9 @@ const dropDown = keyframes`
   }
 `;
 
-const WhiteBox = styled.button`
-  background-color: white;
+const ItemBox = styled.button`
+  background-color: ${({ theme }) => theme.colors.darker};
+  color: ${({ theme }) => theme.colors.brightest};
   padding: 3px;
   border-radius: 3px;
   border: solid 1px black;
@@ -64,23 +65,22 @@ const WhiteBox = styled.button`
 
 const DropdownBox = styled.div`
   position: absolute;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.bright};
   padding: 0 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
   border-radius: 3px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   animation: ${dropDown} 0.3s ease-out;
 
-  & ${WhiteBox} {
+  & ${ItemBox} {
     border: none;
     width: 100%;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7);
     margin: 2px 0;
   }
-  & ${WhiteBox}:last-child {
+  & ${ItemBox}:last-child {
     border: none;
   }
 `;
